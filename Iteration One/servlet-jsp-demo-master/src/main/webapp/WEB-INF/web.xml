@@ -1,0 +1,39 @@
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
+		 http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+  
+  <servlet>
+  	<servlet-name>SayHelloMyWay</servlet-name>
+  	<servlet-class>bg.proxiad.demo.SayHelloMyWay</servlet-class>
+  	
+  	<init-param>
+  		<param-name>greet</param-name>
+  		<param-value>Hello</param-value>
+  	</init-param>
+  	  	
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>SayHelloMyWay</servlet-name>
+  	<url-pattern>/say-hello-my-way</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet>
+  	<servlet-name>SayHelloMyWayThroughJSP</servlet-name>
+  	<servlet-class>bg.proxiad.demo.SayHelloMyWayThroughJSP</servlet-class>
+  	
+  	<init-param>
+  		<param-name>greet</param-name>
+  		<param-value>Hello</param-value>
+  	</init-param>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>SayHelloMyWayThroughJSP</servlet-name>
+  	<url-pattern>/say-hello-my-way-through-jsp</url-pattern>
+  </servlet-mapping>
+  
+  
+</web-app>
+
