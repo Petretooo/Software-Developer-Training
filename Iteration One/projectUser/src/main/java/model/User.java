@@ -2,9 +2,9 @@ package model;
 
 
 public class User {
-  String name;
-  String username;
-  String password;
+  private String name;
+  private String username;
+  private String password;
 
   public User() {
     // TODO Auto-generated constructor stub

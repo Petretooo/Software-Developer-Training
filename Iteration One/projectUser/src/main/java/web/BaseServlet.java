@@ -8,10 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.User;
 
+@SuppressWarnings("serial")
 public class BaseServlet extends HttpServlet implements ContextUser {
 
   public ServletContext servletContext;
 
+  @SuppressWarnings("unchecked")
   @Override
   public void addUser(User user, HttpServletRequest request, HttpServletResponse response) {
     servletContext = request.getServletContext();
@@ -27,6 +29,7 @@ public class BaseServlet extends HttpServlet implements ContextUser {
     ((Map<Integer, User>) servletContext.getAttribute("users")).putIfAbsent(++size, user);
   }
 
+  @SuppressWarnings("unchecked")
   @Override
   public void deleteUser(HttpServletRequest request, HttpServletResponse response) {
 
@@ -35,6 +38,7 @@ public class BaseServlet extends HttpServlet implements ContextUser {
 
   }
 
+  @SuppressWarnings("unchecked")
   @Override
   public void editUser(int key, User user, HttpServletRequest request,
       HttpServletResponse response) {
@@ -43,10 +47,19 @@ public class BaseServlet extends HttpServlet implements ContextUser {
 
   }
 
+  @SuppressWarnings("unchecked")
   @Override
-  public Map<String, User> showAllUsers() {
-    // TODO Auto-generated method stub
-    return null;
+  public void showAllUsers(HttpServletRequest request, HttpServletResponse response) {
+    Map<Integer, User> users =
+        (Map<Integer, User>) request.getServletContext().getAttribute("users");
+
+    request.setAttribute("show", users.entrySet());
+    // for (Entry<Integer, User> u : users.entrySet()) {
+    // request.setAttribute("Id", u.getKey());
+    // request.setAttribute("Name", u.getValue().getName());
+    // request.setAttribute("Username", u.getValue().getUsername());
+    // request.setAttribute("Password", u.getValue().getPassword());
+    // }
   }
 
 

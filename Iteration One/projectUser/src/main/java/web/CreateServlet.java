@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.User;
 
+@SuppressWarnings("serial")
 @WebServlet("/create")
 public class CreateServlet extends BaseServlet {
 
@@ -17,19 +18,23 @@ public class CreateServlet extends BaseServlet {
     req.getRequestDispatcher("create.jsp").forward(req, resp);
   }
 
-  @SuppressWarnings("unchecked")
+
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
 
     User user = new User();
-    user.setName(req.getParameter("name"));
-    user.setUsername(req.getParameter("username"));
-    user.setPassword(req.getParameter("password"));
+    user.setName(req.getParameter("name").trim());
+    user.setUsername(req.getParameter("username").trim());
+    user.setPassword(req.getParameter("password").trim());
 
-    super.addUser(user, req, resp);
+    if (!user.getName().isBlank() && !user.getPassword().isBlank()
+        && !user.getUsername().isBlank()) {
+      super.addUser(user, req, resp);
+    }
 
-    resp.sendRedirect("create.jsp");
+
+    resp.sendRedirect("all");
 
   }
 }

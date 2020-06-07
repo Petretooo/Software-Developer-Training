@@ -6,15 +6,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@SuppressWarnings("serial")
 @WebServlet("/delete")
 public class DeleteServlet extends BaseServlet {
-
-
 
   private void processRequest(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     super.deleteUser(request, response);
-    response.sendRedirect("all.jsp");
+    response.sendRedirect("all");
   }
 
   @Override
@@ -27,5 +26,6 @@ public class DeleteServlet extends BaseServlet {
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     processRequest(req, resp);
+
   }
 }
