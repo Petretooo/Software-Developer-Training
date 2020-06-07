@@ -13,14 +13,11 @@ public class SayHelloMyWayThroughJSP extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    // String greeting = getInitParameter("greet");
 
     CountMyRequests.counter(req, resp);
+    req.setAttribute("greet", getInitParameter("greet"));
 
-    String name = req.getParameter("name");
-    getServletContext().setAttribute("name", name);
     req.getRequestDispatcher("/hello-my-way.jsp").forward(req, resp);
-    // resp.getWriter().write("<h1>" + greeting + " " + name + "</h1>");
   }
 
 }

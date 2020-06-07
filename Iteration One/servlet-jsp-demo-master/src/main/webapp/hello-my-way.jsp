@@ -9,7 +9,7 @@
 <body>
 <h1>This is my way!</h1>
 	<h1>
-		<%=getServletConfig().getInitParameter("greet")+" "+ request.getParameter("name")%>
+		${greet}<%=" "+ request.getParameter("name")%>
 	</h1>
 	<h3>
 

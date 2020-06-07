@@ -17,8 +17,9 @@ public class SayHelloThroughJspServlet extends HttpServlet {
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     CountAllRequests.counter(req, resp);
-    getServletContext().setAttribute("greeting", "Hello through JSP!");
 
+
+    req.setAttribute("greeting", "Hello through JSP");
     RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/say-hello.jsp");
     dispatcher.forward(req, resp);
 

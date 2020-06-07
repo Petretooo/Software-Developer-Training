@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h2>${counterAll}</h2>
+	<h2>All requests made during the session: ${counterAll}</h2>
 </body>
 </html>

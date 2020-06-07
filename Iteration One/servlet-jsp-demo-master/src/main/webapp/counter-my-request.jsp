@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h2>${counter}</h2>
+	<h2>All requests made during the session in my way: ${counter}</h2>
 </body>
 </html>

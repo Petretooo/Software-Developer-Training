@@ -16,12 +16,11 @@ public class SayHelloMyWay extends HttpServlet {
       throws ServletException, IOException {
     CountMyRequests.counter(req, resp);
 
+
     String greeting = getInitParameter("greet");
     String name = req.getParameter("name");
 
     resp.getWriter().write("<h1>" + greeting + " " + name + "</h1>");
-
-
     // RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/hello-my-way.jsp");
     // dispatcher.forward(req, resp);
   }

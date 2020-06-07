@@ -11,15 +11,12 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/count-all-requess")
 public class CountAllRequests extends HttpServlet {
 
-  public static Integer counter = 0;
-  public static HttpSession session;
-
   protected static void counter(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
 
-    session = req.getSession();
+    HttpSession session = req.getSession();
 
-    counter = (Integer) session.getAttribute("request");
+    Integer counter = (Integer) session.getAttribute("request");
     if (counter == null) {
       counter = 0;
     }
@@ -29,15 +26,17 @@ public class CountAllRequests extends HttpServlet {
     } else {
       session.setAttribute("request", ++counter);
     }
-
-
   }
-
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    getServletContext().setAttribute("counterAll", counter);
+    Integer counter = (Integer) req.getSession().getAttribute("request");
+    if (counter == null) {
+      counter = 0;
+      req.getSession().setAttribute("request", counter);
+    }
+    getServletContext().setAttribute("counterAll", req.getSession().getAttribute("request"));
     req.getRequestDispatcher("/counter-all-request.jsp").forward(req, resp);
   }
 
