@@ -16,7 +16,7 @@ public class EditServlet extends BaseServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    // processRequest(req, resp);
+
     int key;
     if (req.getParameter("key") == null) {
       key = 0;
