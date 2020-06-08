@@ -5,12 +5,7 @@
 <%@page import="web.EditServlet" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
+<t:wrapper>
 <body>
 <h1>${edit}-${username}</h1>
 	<form method="post">
@@ -32,7 +27,4 @@
 	<br/>
 <a href="all">Back</a>
 </body>
-<footer>
-<t:wrapper/>
-</footer>
-</html>
+</t:wrapper>

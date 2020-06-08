@@ -2,12 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>User Project</title>
-</head>
+<t:wrapper>
 <body >
 	<h1 align="center">
 		<c:set var = "title" value="Welcome to my simple User CRUD application"/>
@@ -20,8 +15,4 @@
 	<c:set var="all" scope="application" value="All Users"/>
 	<a href="all">All users</a>
 </body>
-<footer>
-<t:wrapper/>
-</footer>
-</html>
-
+</t:wrapper>

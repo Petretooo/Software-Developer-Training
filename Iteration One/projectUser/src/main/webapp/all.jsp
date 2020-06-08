@@ -4,13 +4,7 @@
 <%@page import="model.User" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
-
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
+<t:wrapper>
 <body>
 <h3>${hello}</h3>
 <h1><c:out value="${all}"/></h1>
@@ -41,8 +35,4 @@
 </table>
 <a href="index">Back</a>
 </body>
-<footer>
-<t:wrapper/>
-</footer>
-</html>
-
+</t:wrapper>

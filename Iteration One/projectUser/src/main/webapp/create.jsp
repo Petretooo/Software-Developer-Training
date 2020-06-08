@@ -2,12 +2,7 @@
     pageEncoding="ISO-8859-1"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
+<t:wrapper>
 <body>
 <h1><c:out value="${create}"/></h1>
 	<form action="create" method="post">
@@ -29,7 +24,4 @@
 	<br/>
 <a href="index">Back</a>
 </body>
-<footer>
-<t:wrapper/>
-</footer>
-</html>
+</t:wrapper>
