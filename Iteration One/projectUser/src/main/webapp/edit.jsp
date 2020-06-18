@@ -5,6 +5,8 @@
 <%@page import="web.EditServlet" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<style><%@include file="/WEB-INF/css/create-edit.css"%></style>
+<style><%@include file="/WEB-INF/css/link.css"%></style>
 <t:wrapper>
 <body>
 <h1>${edit}-${username}</h1>

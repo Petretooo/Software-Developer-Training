@@ -12,7 +12,8 @@ public class DeleteServlet extends BaseServlet {
 
   private void processRequest(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    super.deleteUser(request, response);
+    int key = Integer.parseInt(request.getParameter("key"));
+    super.deleteUser(key);
     response.sendRedirect("all");
   }
 

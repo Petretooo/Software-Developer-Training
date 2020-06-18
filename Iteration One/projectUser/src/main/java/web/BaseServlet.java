@@ -3,50 +3,52 @@ package web;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import model.User;
 
 @SuppressWarnings("serial")
 public class BaseServlet extends HttpServlet {
 
-  @SuppressWarnings("unchecked")
-  public void addUser(User user, HttpServletRequest request, HttpServletResponse response) {
-    if (request.getServletContext().getAttribute("users") == null) {
+  private static final String USERS = "users";
+
+  private void checkContextIsNull() {
+
+    if (getServletContext().getAttribute(USERS) == null) {
       synchronized (BaseServlet.class) {
-        if (request.getServletContext().getAttribute("users") == null) {
-          request.getServletContext().setAttribute("users", new ConcurrentHashMap<>());
+        if (getServletContext().getAttribute(USERS) == null) {
+          getServletContext().setAttribute(USERS, new ConcurrentHashMap<>());
         }
       }
     }
 
-    int size = ((Map<Integer, User>) request.getServletContext().getAttribute("users")).size();
-    ((Map<Integer, User>) request.getServletContext().getAttribute("users")).putIfAbsent(++size,
-        user);
   }
 
   @SuppressWarnings("unchecked")
-  public void deleteUser(HttpServletRequest request, HttpServletResponse response) {
+  public void addUser(User user) {
+    checkContextIsNull();
 
-    int key = Integer.parseInt(request.getParameter("key"));
-    ((Map<Integer, User>) request.getServletContext().getAttribute("users")).remove(key);
-
+    int size = ((Map<Integer, User>) getServletContext().getAttribute(USERS)).size();
+    ((Map<Integer, User>) getServletContext().getAttribute(USERS)).putIfAbsent(++size, user);
   }
 
   @SuppressWarnings("unchecked")
-  public void editUser(int key, User user, HttpServletRequest request,
-      HttpServletResponse response) {
+  public void deleteUser(int key) {
 
-    ((Map<Integer, User>) request.getServletContext().getAttribute("users")).replace(key, user);
+    ((Map<Integer, User>) getServletContext().getAttribute(USERS)).remove(key);
 
   }
 
   @SuppressWarnings("unchecked")
-  public void showAllUsers(HttpServletRequest request, HttpServletResponse response) {
-    Map<Integer, User> users =
-        (Map<Integer, User>) request.getServletContext().getAttribute("users");
+  public void editUser(int key, User user) {
 
-    request.setAttribute("show", users.entrySet());
+    ((Map<Integer, User>) getServletContext().getAttribute(USERS)).replace(key, user);
+
+  }
+
+  @SuppressWarnings("unchecked")
+  public void showAllUsers() {
+    Map<Integer, User> users = (Map<Integer, User>) getServletContext().getAttribute(USERS);
+
+    getServletContext().setAttribute("show", users.entrySet());
   }
 
 

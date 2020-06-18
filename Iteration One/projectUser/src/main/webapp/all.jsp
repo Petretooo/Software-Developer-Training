@@ -4,17 +4,20 @@
 <%@page import="model.User" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<style><%@include file="/WEB-INF/css/style.css"%></style>
+<style><%@include file="/WEB-INF/css/link.css"%></style>
 <t:wrapper>
 <body>
 <h3>${hello}</h3>
 <h1><c:out value="${all}"/></h1>
-	<table border="1">
+	<table border="1" >
 	<thead>
 		<tr>
 			<th>Id</th>
 			<th>Name</th>
 			<th>Username</th>
 			<th>Password</th>
+			<th>Actions</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -33,6 +36,8 @@
 		</c:forEach>
 	</tbody>
 </table>
+<br/>
+<br/>
 <a href="index">Back</a>
 </body>
 </t:wrapper>

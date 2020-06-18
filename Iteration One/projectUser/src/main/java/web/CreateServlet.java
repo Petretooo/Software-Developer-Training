@@ -30,7 +30,7 @@ public class CreateServlet extends BaseServlet {
 
     if (!user.getName().isBlank() && !user.getPassword().isBlank()
         && !user.getUsername().isBlank()) {
-      super.addUser(user, req, resp);
+      super.addUser(user);
     }
 
 

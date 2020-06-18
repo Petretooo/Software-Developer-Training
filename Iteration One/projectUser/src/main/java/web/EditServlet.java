@@ -46,7 +46,7 @@ public class EditServlet extends BaseServlet {
 
     if (!user.getName().isBlank() && !user.getPassword().isBlank()
         && !user.getUsername().isBlank()) {
-      super.editUser(key, user, req, resp);
+      super.editUser(key, user);
     }
 
     resp.sendRedirect("all");

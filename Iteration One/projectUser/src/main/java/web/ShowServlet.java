@@ -21,7 +21,7 @@ public class ShowServlet extends BaseServlet {
         }
       }
     }
-    super.showAllUsers(req, resp);
+    super.showAllUsers();
 
     req.getRequestDispatcher("all.jsp").forward(req, resp);
   }
