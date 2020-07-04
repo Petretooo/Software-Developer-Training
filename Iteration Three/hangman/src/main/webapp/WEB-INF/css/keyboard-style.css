@@ -1,0 +1,21 @@
+.key{
+  float:left; margin-left: 25px;
+}
+.letter{width:30px;}
+
+#content {
+  display: block;
+}
+input[type="text"]{
+    color: transparent;
+    text-shadow: 0 0 0 #000;
+    padding: 6px 12px;
+    width: 150px;
+    cursor: pointer;
+}
+input[type="text"]:focus{
+    outline: none;
+}
+input:focus + div#content {
+  display: none;
+}
