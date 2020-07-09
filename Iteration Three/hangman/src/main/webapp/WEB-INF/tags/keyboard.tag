@@ -13,7 +13,7 @@
 <c:forEach var="game" items="${alpha}">
 <c:if test="${!game.getValue()}">
 	<div class="key letter" >
-  	<button class="btn btn-lg btn-secondary" type="submit" name="letter" value="${game.getKey()}">${game.getKey()}</button>
+  	<button id="characterButton" class="btn btn-lg btn-secondary" type="submit" name="letter" value="${game.getKey()}">${game.getKey()}</button>
   	</div>
 </c:if>
 </c:forEach>

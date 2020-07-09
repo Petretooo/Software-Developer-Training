@@ -1,0 +1,22 @@
+package test.hangman.e2e;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+
+public class HangmanIndexPage {
+  
+  WebDriver driver;
+  
+  @FindBy(xpath = "//*[@id=\"buttonGame\"]")
+  WebElement buttonNewGame;
+  
+  public HangmanIndexPage(WebDriver driver) {
+    this.driver = driver;
+  }
+  
+  public void createGame() {
+    buttonNewGame.click();
+  }
+  
+}

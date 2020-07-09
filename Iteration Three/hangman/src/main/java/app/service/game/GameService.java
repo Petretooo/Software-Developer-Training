@@ -1,5 +1,8 @@
 package app.service.game;
 
+import java.util.Map;
+import app.model.Game;
+
 public interface GameService {
 
   public Game createGame();
@@ -10,6 +13,10 @@ public interface GameService {
 
   public void enterCharacter(String id, String letter);
 
-  public boolean found(String id);
+  public boolean isFound(String id);
+  
+  public Map<Character, Boolean> getAlphabet(String gameId);
+  
+  public void setCharacter(String gameId, char character);
 
 }
