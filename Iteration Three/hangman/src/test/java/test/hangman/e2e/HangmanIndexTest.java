@@ -1,12 +1,15 @@
 package test.hangman.e2e;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.support.PageFactory;
 
 public class HangmanIndexTest extends SeleniumTest {
   
-  HangmanIndexPage indexPage;
+  private HangmanIndexPage indexPage;
+  
+  private final static String URL_GAME_PAGE = "http://localhost:8080/hangman/games/";
   
   @BeforeEach
   public void init() {
@@ -14,8 +17,10 @@ public class HangmanIndexTest extends SeleniumTest {
   }
   
   @Test
-  public void newGame_buttonClick_creteGame() throws Exception{
+  public void Should_GoGamePage_When_ClickOnNewGame(){
     indexPage.createGame();
+    String page = driver.getCurrentUrl().toString().substring(0, 36);
+    assertThat(page).isEqualTo(URL_GAME_PAGE);
   }
 
 }

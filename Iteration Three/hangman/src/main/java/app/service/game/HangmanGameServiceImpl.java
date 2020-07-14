@@ -2,7 +2,6 @@ package app.service.game;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,30 +9,30 @@ import app.model.Game;
 import app.repository.HangmanRepository;
 import app.service.alphabet.AlphabetService;
 import app.service.word.WordService;
+import app.util.CharacterNotFoundException;
+import lombok.AllArgsConstructor;
 
 @Service
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class HangmanGameServiceImpl implements GameService {
 
-  private HangmanRepository hangmanRepo;
-  private WordService wordService;
-  private AlphabetService alphabetService;
-  
-  @Autowired
-  public HangmanGameServiceImpl(HangmanRepository hangmanRepo, WordService wordService, AlphabetService alphabetService) {
-    this.hangmanRepo = hangmanRepo;
-    this.wordService = wordService;
-    this.alphabetService = alphabetService;
-  }
+   private HangmanRepository hangmanRepo;
+   private WordService wordService;
+   private AlphabetService alphabetService;
 
   @Override
   public void enterCharacter(String id, String letter) {
-    Game game = hangmanRepo.getGame(id);
+    Game game = hangmanRepo.getGame(id);    
     if (!game.getUsedCharacters().contains(letter)) {
       if (game.getCurrentWord().contains(letter)) {
         int index = game.getCurrentWord().indexOf(letter);
         char[] hidden = game.getHiddenWord();
         while (index >= 0) {
+          try {
           hidden[index] = letter.charAt(0);
+          }catch (StringIndexOutOfBoundsException ex) {
+            throw new CharacterNotFoundException("Character not found");
+          }
           index = game.getCurrentWord().indexOf(letter, index + 1);
         }
         game.setHiddenWord(hidden);
@@ -41,7 +40,7 @@ public class HangmanGameServiceImpl implements GameService {
         int numberRemaining = game.getNumberTries();
         game.setNumberTries(--numberRemaining);
       }
-      if(letter.charAt(0) >= 60 && letter.charAt(0) <= 90) {
+      if(letter.charAt(0) >= 'A' && letter.charAt(0) <= 'Z') {
         List<String> letters = game.getUsedCharacters();
         letters.add(letter);
         game.setUsedCharacters(letters);
@@ -72,7 +71,7 @@ public class HangmanGameServiceImpl implements GameService {
     String firstLetter = game.getCurrentWord().substring(0, 1);
     String lastLetter = game.getCurrentWord().substring(game.getCurrentWord().length() - 1);
     char[] hidden = new char[game.getCurrentWord().length()];
-    for (int i = 0; i < hidden.length; i++) { //void hideWord()
+    for (int i = 0; i < hidden.length; i++) {
       hidden[i] = '_';
     }
     game.setHiddenWord(hidden);
@@ -108,16 +107,6 @@ public class HangmanGameServiceImpl implements GameService {
   @Override
   public boolean deleteGame(String id, Game game) {
     return hangmanRepo.removeGame(id, game);
-  }
-
-  @Override
-  public Map<Character, Boolean> getAlphabet(String gameId) {
-    return alphabetService.getCurrentGameAlphabet(gameId);
-  }
-
-  @Override
-  public void setCharacter(String gameId, char character) {
-    alphabetService.setUsedCharacter(gameId, character);    
   }
 
 }

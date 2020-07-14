@@ -6,7 +6,8 @@ import org.openqa.selenium.support.FindBy;
 
 public class HangmanIndexPage {
   
-  WebDriver driver;
+  @SuppressWarnings("unused")
+  private WebDriver driver;
   
   @FindBy(xpath = "//*[@id=\"buttonGame\"]")
   WebElement buttonNewGame;

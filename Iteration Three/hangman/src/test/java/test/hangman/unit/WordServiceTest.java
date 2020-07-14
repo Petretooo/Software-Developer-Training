@@ -7,10 +7,10 @@ import app.service.word.WordServiceImpl;
 
 public class WordServiceTest {
 
-  WordService word = new WordServiceImpl();
+  private WordService word = new WordServiceImpl();
   
   @Test
-  public void randomWordGenerator_generateWord_shoudReturnNotNull() {
+  public void Should_ReturnNotNull_When_GenerateRandomWord() {
     String randomWord = word.randomWordGenerator();
     assertThat(randomWord).isNotNull();
   }

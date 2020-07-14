@@ -1,9 +1,8 @@
 package test.hangman.unit;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,33 +15,33 @@ import app.repository.HangmanRepository;
 import app.service.alphabet.AlphabetService;
 import app.service.game.HangmanGameServiceImpl;
 import app.service.word.WordService;
+import app.util.CharacterNotFoundException;
 
 
 @ExtendWith(MockitoExtension.class)
 public class HangmanGameServiceTest {//TODO
 
   @Mock
-  HangmanRepository repo;
+  private HangmanRepository repo;
   @Mock
-  WordService word;
+  private WordService word;
   @Mock
-  AlphabetService alphabet;
+  private AlphabetService alphabet;
   
   @InjectMocks
-  HangmanGameServiceImpl gameService;
+  private HangmanGameServiceImpl gameService;
   
   Game game = new Game();
-  final static int COUNT_ONE_ELEMENT = 1;
-  final static int COUNT_TWO_ELEMENT = 2;
-  final static int NUMBER_TRIES = 5;
-  final static int ZERO = 0;
+  private final static int COUNT_ONE_ELEMENT = 1;
+  private final static int COUNT_TWO_ELEMENT = 2;
+  private final static int NUMBER_TRIES = 5;
+  private final static int ZERO = 0;
   
   
   @BeforeEach
   public void init() {
     Mockito.when(word.randomWordGenerator()).thenReturn("WORD");
     Mockito.when(repo.getGame(Mockito.anyString())).thenReturn(game);
-    
 
     game.setNumberTries(5);
     game.setCurrentWord("WORD");
@@ -53,22 +52,21 @@ public class HangmanGameServiceTest {//TODO
       hidden[i] = '_';
     }
     game.setHiddenWord(hidden);
-    
     game = gameService.createGame();
   }
   
   @Test
-  public void createGame() {
+  public void Should_ReturnNotNull_When_MakeNewGame() {
     assertThat(game).isNotNull();
   }
 
   @Test
-  public void getWord_CorrectWord_ExpectedWord() {
+  public void Should_ReturnExpectedWord_When_GetWord() {
     assertThat(game.getCurrentWord()).isEqualTo("WORD");
   }
 
   @Test
-  public void getUsedWords_MultipleSameLetter_ShouldContainsOnlyOne() {
+  public void Should_ReturnLengthOne_When_MakeMultipleTryWithSameCharacter() {
     gameService.enterCharacter(game.getId(), "A");
     gameService.enterCharacter(game.getId(), "A");
     gameService.enterCharacter(game.getId(), "A");
@@ -77,14 +75,14 @@ public class HangmanGameServiceTest {//TODO
   }
 
   @Test
-  public void getUsedWords_CorrectlyAddedLetter_ReturnLengthOne() {
+  public void Should_ReturnOne_When_MakeTryWithCharacter() {
     gameService.enterCharacter(game.getId(), "A");
     long length = gameService.getUsedLetters(game.getId()).chars().filter(e -> e == 'A').count();
     assertThat(COUNT_ONE_ELEMENT).isEqualTo(length);
   }
 
   @Test
-  public void getUsedWords_CorrectlyAddedDifferentLetters_ReturnLengthTwo() {
+  public void Should_ReturnTwo_When_MakeTryWithTwoDifferentCharacters() {
     gameService.enterCharacter(game.getId(), "A");
     gameService.enterCharacter(game.getId(), "B");
     long length = gameService.getUsedLetters(game.getId()).chars().filter(e -> e == 'A' || e == 'B').count();
@@ -92,19 +90,33 @@ public class HangmanGameServiceTest {//TODO
   }
 
   @Test
-  public void numberTries_CorrectlyStartedTries_ShouldReturnFive() {
+  public void Should_ReturnFive_When_GetNumberTriesAfterStartedGame() {
     assertThat(NUMBER_TRIES).isEqualTo(game.getNumberTries());
   }
 
   @Test
-  public void numberTries_AfterOneTry_ShouldReturnZero() {
+  public void Should_ReturnZero_When_MakeTryWithNumber() {
     gameService.enterCharacter(game.getId(), "1");
     long length = gameService.getUsedLetters(game.getId()).chars().filter(e -> e == '1').count();
     assertThat(ZERO).isEqualTo(length);
   }
+  
+  @Test
+  public void Should_ReturnZero_When_MakeTryWithSymbol() {
+    gameService.enterCharacter(game.getId(), "1");
+    long length = gameService.getUsedLetters(game.getId()).chars().filter(e -> e == '|').count();
+    assertThat(ZERO).isEqualTo(length);
+  }
+  
+  @Test
+  public void Should_ReturnZero_When_MakeTryWithZ() {
+    gameService.enterCharacter(game.getId(), "Z");
+    long length = gameService.getUsedLetters(game.getId()).chars().filter(e -> e == 'Z').count();
+    assertThat(COUNT_ONE_ELEMENT).isEqualTo(length);
+  }
 
   @Test
-  public void found_InputAllLetters_ShouldFindTheHiddenWord() {
+  public void Should_ReturnTrue_When_FindCorrectWord() {
     String[] alphabet = {"D", "O", "R", "W"};
     for (String letter : alphabet) {
       gameService.enterCharacter(game.getId(), letter);
@@ -113,25 +125,22 @@ public class HangmanGameServiceTest {//TODO
   }
   
   @Test
-  public void deleteGame_checkDelete_ShouldReturnFalse() {
+  public void Should_ReturnTrue_When_DeleteGameCorrectly() {
     Mockito.when(repo.removeGame(Mockito.anyString(), Mockito.any())).thenReturn(true);
     assertThat(gameService.deleteGame(game.getId(), game)).isTrue();
   }
 
   @Test
-  public void getGame_checkCorrect_ShouldReturnNotNull() {
+  public void Should_ReturnNotNull_When_GetGameById() {
     assertThat(gameService.getGame(game.getId())).isNotNull();
   }
   
   @Test
-  public void getAlphabet_checkCorrect_ShouldReturnNotNull() {
-    Map<Character, Boolean> alpha = new HashMap<Character, Boolean>();
-    Mockito.when(alphabet.getCurrentGameAlphabet(Mockito.anyString())).thenReturn(alpha);
-    assertThat(gameService.getAlphabet(game.getId())).isNotNull();
+  public void Should_ReturnException_When_MakeTryWithEmptyString() {
+ 
+    assertThatThrownBy(() -> {gameService.enterCharacter(game.getId(), "");})
+    .isInstanceOf(CharacterNotFoundException.class);
+   
   }
   
-  @Test
-  public void setCharacter_useCharacter_ShouldPass() {
-    gameService.setCharacter(game.getId(), 'A');
-  }
 }

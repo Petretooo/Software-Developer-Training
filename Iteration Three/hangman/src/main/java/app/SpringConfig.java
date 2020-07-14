@@ -17,14 +17,6 @@ import app.util.LoggerAspect;
 @ComponentScan("app")
 public class SpringConfig implements WebMvcConfigurer {
 
-//  @Override
-//  public void addViewControllers(ViewControllerRegistry registry) {
-//    registry.addViewController("/").setViewName("index");
-//    registry.addViewController("/newGame").setViewName("newGame");
-//    registry.addViewController("/gameover").setViewName("gameover");
-//    registry.addViewController("/win").setViewName("win");
-//  }
-
   @Bean
   public ViewResolver viewResolver() {
     InternalResourceViewResolver bean = new InternalResourceViewResolver();

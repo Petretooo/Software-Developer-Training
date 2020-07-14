@@ -7,16 +7,16 @@ import app.repository.HangmanRepositoryImpl;
 
 public class HangmanRepositoryTest {
   
-  HangmanRepository repo = new HangmanRepositoryImpl();
+  private HangmanRepository repo = new HangmanRepositoryImpl();
   
   @Test
-  public void getGame_makeGame_ReturnGameNotNull() {
+  public void Should_ReturnNotNull_When_AddNewGameCorrectly() {
     repo.addGame("1", new Game());
     assertThat(repo.getGame("1")).isNotNull();
   }
   
   @Test
-  public void removeGame_makeGame_ReturnTrue() {
+  public void Should_ReturnTrue_When_RemoveGameCorrectly() {
     repo.addGame("1", new Game());
     assertThat(repo.removeGame("1", repo.getGame("1"))).isTrue();
   }

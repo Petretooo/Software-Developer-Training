@@ -6,17 +6,17 @@ import app.service.alphabet.AlphabetService;
 import app.service.alphabet.AlphabetServiceImpl;
 
 public class AlphabetServiceTest {
-  AlphabetService alphabetService = new AlphabetServiceImpl();
+  private AlphabetService alphabetService = new AlphabetServiceImpl();
   
   
   @Test
-  public void setGameAlphabet_create_ShouldReturnTheCorrectAlphabet() {
+  public void Should_ReturnNotNull_When_SetGameWithId() {
     alphabetService.setGameAlphabet("1");
     assertThat(alphabetService.getCurrentGameAlphabet("1")).isNotNull();
   }
   
   @Test
-  public void setUsedCharacter_makeTry_ShoudReturnTrue() {
+  public void Should_ReturnTrue_When_MakeTry() {
     alphabetService.setGameAlphabet("1");
     alphabetService.setUsedCharacter("1", 'A');
     Map<Character, Boolean> alphabet = alphabetService.getCurrentGameAlphabet("1");

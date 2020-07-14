@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class HangmanGamePage {
-  WebDriver driver; //TODO ID XPATH
+  private WebDriver driver;
   
   @FindBy(xpath = "//*[@id=\"buttonGame\"]")
   private WebElement buttonNewGame;
@@ -20,7 +20,7 @@ public class HangmanGamePage {
   @FindBy(xpath = "//*[@id=\"backHome\"]")
   private WebElement backButton;
   
-  String hiddenWordScript = "return document.getElementById('secret').innerHTML";
+  private final static String HIDDEN_WORD_CHEAT = "return document.getElementById('secret').innerHTML";
   
   public HangmanGamePage(WebDriver driver) {
     this.driver = driver;
@@ -44,7 +44,7 @@ public class HangmanGamePage {
   
   public String cheatWord() {
     JavascriptExecutor executor = (JavascriptExecutor)driver;
-    return executor.executeScript(hiddenWordScript).toString();
+    return executor.executeScript(HIDDEN_WORD_CHEAT).toString();
   }
   
   public void backToIndexPage() {

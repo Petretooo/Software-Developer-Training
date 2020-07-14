@@ -7,7 +7,11 @@ import org.openqa.selenium.support.PageFactory;
 
 public class HangmanGameTest extends SeleniumTest {
   
-  HangmanGamePage gamePage;
+  private HangmanGamePage gamePage;
+  
+  private final static String TITLE_GAME_PAGE = "Hangman Game";
+  private final static String CHARACTER_A = "A";
+  private final static String URL_HOME_PAGE = "http://localhost:8080/hangman/";
   
   @BeforeEach
   public void init() {
@@ -16,31 +20,31 @@ public class HangmanGameTest extends SeleniumTest {
   }
   
   @Test
-  public void getTitle_check_returnHangmanGame() {
+  public void Should_ReturnCorrectTitleGame_When_GetPageTitle() {
     String name = gamePage.title();
-    assertThat(name).isEqualTo("Hangman Game");
+    assertThat(name).isEqualTo(TITLE_GAME_PAGE);
   }
   
   @Test
-  public void getACharacter_check_returnA() {
+  public void Should_ReturnCharacterA_When_GetTheCharacter() {
     String character = gamePage.ACharacter();
-    assertThat(character).isEqualTo("A");
+    assertThat(character).isEqualTo(CHARACTER_A);
   }
   
   @Test
-  public void onClick_ACharacter_makeTry() {
+  public void Should_DisappearCharacter_When_ClickOnIt() {
     gamePage.clickACharacter();
   }
 
   @Test
-  public void cheat_getWord_returnCorrectWord() {
+  public void Should_GetWordGame_When_GetHiddenTag() {
     String name = gamePage.cheatWord();
     assertThat(gamePage.cheatWord()).isEqualTo(name);
   }
   
   @Test
-  public void onClick_backButton_returnIndexPage() {
+  public void Should_ReturnHomePage_When_ClickOnBack() {
     gamePage.backToIndexPage();
-    assertThat(driver.getCurrentUrl()).isEqualTo("http://localhost:8080/hangman/");
+    assertThat(driver.getCurrentUrl()).isEqualTo(URL_HOME_PAGE);
   }
 }
