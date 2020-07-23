@@ -1,9 +1,0 @@
-app\web\CreateGameServlet.class
-app\hangman\HangmanGameServiceImpl.class
-app\hangman\HangmanRepository.class
-app\web\IndexServlet.class
-App.class
-app\hangman\GameService.class
-app\controller\HomeController.class
-app\hangman\GameContext.class
-app\hangman\HangmanRepositoryService.class
