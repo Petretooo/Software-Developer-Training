@@ -99,7 +99,7 @@ public class HangmanGameServiceImpl implements GameService {
 		enterCharacter(game.getId(), lastLetter);
 		alphabetService.setUsedCharacter(game.getId(), lastLetter.charAt(0));
 		
-//		gameDao.save(game);
+		gameDao.save(game);
 		return game;
 	}
 

@@ -1,4 +1,4 @@
-package app.dao.game;
+package app.dao.user;
 
 import java.util.List;
 import java.util.Optional;
@@ -7,18 +7,28 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import app.model.Game;
+import app.model.User;
 
 @Repository
-public class GameDaoImpl<T> {
-	
+public class UserDaoImpl{
+
 	@PersistenceContext
-	private EntityManager entityManager;
+	EntityManager entityManager;
 	
-	public Optional<Game> get(String id) {
-		return Optional.ofNullable(entityManager.find(Game.class, id));
+
+	@Transactional
+	public void save(User entity) {
+		entityManager.persist(entity);
 	}
+
+
+	public Optional<User> get(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 	public void remove(String id) {
 		// TODO Auto-generated method stub
@@ -30,15 +40,9 @@ public class GameDaoImpl<T> {
 		
 	}
 
-	public List<Game> getAll() {
+	public List<User> getAll() {
 		// TODO Auto-generated method stub
 		return null;
-	}
-	
-	public void save(Game entity) {
-		entityManager.getTransaction().begin();
-		entityManager.persist(entity);		
-		entityManager.getTransaction().commit();
 	}
 
 }
