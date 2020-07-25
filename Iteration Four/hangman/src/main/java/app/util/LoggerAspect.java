@@ -7,14 +7,18 @@ import org.aspectj.lang.annotation.Before;
 
 @Aspect
 public class LoggerAspect {
-  private Logger logger = Logger.getLogger(getClass().getName());
+  
+	private Logger logger = Logger.getLogger(getClass().getName());
 
-//  @Pointcut("execution(* app.web.*.*(..))")
-//  public void log() {}
 
   @Before("execution(* app.web.*.*(..))")
   public void before(JoinPoint joinPoint) {
     String name = joinPoint.getSignature().toShortString();
     logger.info("------------This method: " + name);
+  }
+  
+  @Before("execution(* app.web.GameController.createGame(..))")
+  public String beforeCreateGame(JoinPoint joinPoint) {
+	  return "user.jsp";
   }
 }

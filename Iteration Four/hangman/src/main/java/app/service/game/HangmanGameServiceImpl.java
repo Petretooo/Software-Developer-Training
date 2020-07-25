@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.UUID;
 import org.springframework.stereotype.Service;
 
-import app.dao.game.Dao;
+import app.dao.Dao;
 import app.dao.game.GameDaoImpl;
 import app.model.Game;
 import app.repository.HangmanRepository;
@@ -99,7 +99,7 @@ public class HangmanGameServiceImpl implements GameService {
 		enterCharacter(game.getId(), lastLetter);
 		alphabetService.setUsedCharacter(game.getId(), lastLetter.charAt(0));
 		
-		gameDao.save(game);
+//		gameDao.save(game);
 		return game;
 	}
 

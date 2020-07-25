@@ -41,11 +41,11 @@ public class GameController {
     return "games";
   }
 
-  @PostMapping
-  public ModelAndView createGame(HttpServletResponse response, Model model) throws IOException {
-    Game game = gameService.createGame();
-    return new ModelAndView("redirect:/games/" + game.getId());
-  }
+//  @PostMapping
+//  public ModelAndView createGame(HttpServletResponse response, Model model) throws IOException {
+//    Game game = gameService.createGame();
+//    return new ModelAndView("redirect:/games/" + game.getId());
+//  }
 
   @PostMapping("/{gameId}")//FIX LOGIC
   public ModelAndView makeTry(@PathVariable String gameId, HttpServletRequest request,
