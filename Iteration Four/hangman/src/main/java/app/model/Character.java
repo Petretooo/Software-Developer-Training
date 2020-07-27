@@ -1,5 +1,8 @@
 package app.model;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +13,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -29,9 +33,8 @@ public class Character {
 	private String characterId;
 	@Column(name = "letter")
 	private char letter;
-	@Column(name = "id_game_character", insertable=false, updatable=false)
-	private String idGame;
-	@ManyToOne
-	@JoinColumn(name = "id_game_character", referencedColumnName = "game_id")
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_game_character")
 	private Game game;
 }

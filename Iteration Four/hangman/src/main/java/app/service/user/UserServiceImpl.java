@@ -1,24 +1,56 @@
 package app.service.user;
 
-import java.util.UUID;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
-import app.dao.user.UserDaoImpl;
+import app.dao.user.UserDao;
+import app.model.Game;
 import app.model.User;
 import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
-	
-	private UserDaoImpl userDao = new UserDaoImpl();
+
+	private UserDao userDao;
 
 	@Override
-	public void create(String username) {
+	public User create(String username) {
+
 		User user = new User();
-		user.setUserId(UUID.randomUUID().toString());
 		user.setUsername(username);
-		userDao.save(user);
+		if(userDao.getByName(user.getUsername()) != null) {
+			user = userDao.getByName(user.getUsername());
+		}else {
+			userDao.save(user);
+		}
+		return user;
+
 	}
+
+	@Override
+	public void remove(String gameId) {
+		userDao.remove(gameId);
+	}
+
+	@Override
+	public List<User> getAllUsers() {
+		return userDao.getAll();
+	}
+
+	@Override
+	public User getUser(String gameId) {
+		return userDao.get(gameId);
+	}
+
+	@Override
+	public void addGame(Game game, String userId) {
+		User user = userDao.get(userId);
+		user.getGames().add(game);
+
+	}
+
 }

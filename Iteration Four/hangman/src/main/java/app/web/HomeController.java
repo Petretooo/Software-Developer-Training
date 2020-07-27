@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import app.model.Game;
+import app.model.User;
 import app.service.game.GameService;
 import app.service.user.UserService;
 
@@ -31,10 +32,14 @@ public class HomeController {
 	@PostMapping
 	public String createUser(HttpServletRequest request, Model model) {
 		String username = request.getParameter("username").trim();
-		Game game = gameService.createGame();
-//		request.setAttribute("id", 1);
-//		userService.create(username);
-//		return new ModelAndView("redirect:/{id}/games/");
+		User user = userService.create(username);
+		
+		Game game = gameService.createGame(user);
+		user.add(game);
+		
+		System.out.println(user);
+		System.out.println();
+		
 		return "redirect:/games/" + game.getId();
 	}
 }

@@ -4,7 +4,5 @@ number_tries int not null,
 current_word varchar(30) not null,
 hidden_word varchar(30) not null,
 id_user_game VARCHAR(36),
-FOREIGN KEY (id_user_game) REFERENCES users(user_id)
-ON DELETE CASCADE
-ON UPDATE CASCADE
+CONSTRAINT `fK_game_user` FOREIGN KEY (id_user_game) REFERENCES users(user_id)
 );

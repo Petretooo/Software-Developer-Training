@@ -1,11 +1,11 @@
 package app.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -15,26 +15,31 @@ import org.hibernate.annotations.GenericGenerator;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 @Entity
 @Table(name = "users")
 @Data
 @NoArgsConstructor
 public class User {
-	
+
 	@Id
 	@GeneratedValue(generator = "UUID")
-	  @GenericGenerator(
-	          name = "UUID",
-	          strategy = "org.hibernate.id.UUIDGenerator"
-	  )
-    @Column(name = "user_id")
+	@GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+	@Column(name = "user_id")
 	private String userId;
 	@Column(name = "username")
 	private String username;
-	
-	@OneToMany(mappedBy = "user", targetEntity = Game.class,
-			  fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	@NonNull
 	Set<Game> games;
-	
+
+	public void add(Game game) {
+		if (games == null) {
+			games = new HashSet<Game>();
+		}
+		games.add(game);
+//		game.setUser(this);
+	}
 }

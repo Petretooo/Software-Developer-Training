@@ -1,17 +1,19 @@
 package app.model;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -40,7 +42,7 @@ public class GameStats {
 //	@Column(name = "game_id")
 //	private String game_id;
 	@OneToOne
-	@JoinColumn(name = "game_stats_id", referencedColumnName = "game_id")
+	@PrimaryKeyJoinColumn
 	private Game game;
 	
 }
