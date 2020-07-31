@@ -1,8 +1,5 @@
 package app.service.game;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.springframework.stereotype.Service;
 
 import app.dao.game.GameDao;
@@ -83,7 +80,6 @@ public class HangmanGameServiceImpl implements GameService {
 		Game game = new Game();
 		game.setNumberTries(5);
 		game.setCurrentWord(wordService.randomWordGenerator());
-		// game.setUsedCharacters(new ArrayList<String>());
 
 		String firstLetter = game.getCurrentWord().substring(0, 1);
 		String lastLetter = game.getCurrentWord().substring(game.getCurrentWord().length() - 1);
@@ -104,9 +100,15 @@ public class HangmanGameServiceImpl implements GameService {
 	}
 
 	@Override
-	public boolean isFound(String id) {
+	public String resultWord(String id) {
 		Game game = gameDao.get(id);
-		return game.getCurrentWord().contentEquals(new String(game.getHiddenWord()));
+		if(game.getNumberTries() <= 0) {
+			return "gameover";
+		}
+		if(game.getCurrentWord().contentEquals(new String(game.getHiddenWord()))) {
+			return "win";
+		}
+		return null;
 	}
 
 	@Override

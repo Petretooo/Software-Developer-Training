@@ -1,8 +1,6 @@
 package app.service.user;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
@@ -32,8 +30,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void remove(String gameId) {
-		userDao.remove(gameId);
+	public void remove(String uesrId) {
+		userDao.remove(uesrId);
 	}
 
 	@Override
@@ -42,8 +40,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User getUser(String gameId) {
-		return userDao.get(gameId);
+	public User getUser(String uesrId) {
+		return userDao.get(uesrId);
 	}
 
 	@Override

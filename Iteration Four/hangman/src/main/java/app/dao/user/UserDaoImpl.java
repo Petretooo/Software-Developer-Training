@@ -50,12 +50,6 @@ public class UserDaoImpl implements UserDao {
 		return entityManager.createQuery(cq).getResultList();
 	}
 
-//	@Override
-//	public User getByName(String username) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-
 	@Transactional
 	public User getByName(String username) {
 		CriteriaBuilder cb = entityManager.getCriteriaBuilder();

@@ -9,18 +9,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 public class MainWebAppInitializer extends SpringBootServletInitializer {
 
-  public static void main(String[] args) {
-	  
-//	  Date date = new Date();
-//	  System.out.println(date);
-//	  SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
-	  
-//	  StopWatch timer = new StopWatch();
-//	  timer.start();
-//	  Thread.sleep(60000);;
-//	  timer.stop();
-//	  System.out.println(timer.getTime() * 0.001);
-//	  
+  public static void main(String[] args) {  
 	  
 	SpringApplication.run(MainWebAppInitializer.class, args);
   }

@@ -1,19 +1,19 @@
 package app.model;
 
 import java.time.LocalDate;
-import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -25,24 +25,21 @@ public class GameStats {
 
 	@Id
 	@GeneratedValue(generator = "UUID")
-	  @GenericGenerator(
-	          name = "UUID",
-	          strategy = "org.hibernate.id.UUIDGenerator"
-	  )
+	@GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "game_stats_id")
 	private String id;
 	@Column(name = "is_word_found")
 	private boolean isWordFound;
-	@Column(name = "remain_tries")
-	private int remainTries;
-	@Column(name = "seconds")
-	private double seconds;
-	@Column(name = "start_date")
-	private LocalDate startDate;
-//	@Column(name = "game_id")
-//	private String game_id;
-	@OneToOne
-	@PrimaryKeyJoinColumn
+	@Column(name = "wrong_tries")
+	private int wrongTries;
+	@Column(name = "game_start")
+	private LocalDate gameStart;
+	@Column(name = "game_end")
+	private LocalDate gameEnd;
+	@Column(name = "game_id", insertable = false, updatable = false)
+	private String gameId;
+	@OneToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.ALL)
+	@JoinColumn(name = "game_id", referencedColumnName = "game_id")
 	private Game game;
 	
 }

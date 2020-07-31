@@ -15,8 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import app.model.Game;
+import app.model.GameStats;
+import app.model.UserStats;
 import app.service.alphabet.AlphabetService;
 import app.service.game.GameService;
+import app.service.gameStats.GameStatsService;
+import app.service.rank.RankService;
+import app.service.userStats.UserStatsService;
 import app.util.CharacterNotFoundException;
 
 @Controller
@@ -27,6 +32,12 @@ public class GameController {
 	private GameService gameService;
 	@Autowired
 	private AlphabetService alphabetService;
+	@Autowired
+	private GameStatsService gameStatsService;
+	@Autowired
+	private UserStatsService userStatsService;
+	@Autowired
+	private RankService rankService;
 	
 
 	@GetMapping("/{gameId}")
@@ -42,23 +53,19 @@ public class GameController {
 		return "games";
 	}
 
-	@PostMapping("/{gameId}") // FIX LOGIC
+	@PostMapping("/{gameId}")
 	public ModelAndView makeTry(@PathVariable String gameId, HttpServletRequest request, Model model) {
 		Game game = gameService.getGame(gameId);
 		gameService.enterCharacter(game.getId(), request.getParameter("letter"));
-		//TODO FIX BUSSINES LOGIC - NOT IN CONTROLLER, AND ADD GAMESTATS, STOPWATCH, ETC.. MAYBE THREAD
-		if (game.getNumberTries() <= 0) {//GAMESTATS TODO NOT HERE
+		
+		if(gameService.resultWord(gameId) != null) {
 			request.setAttribute("theWord", game.getCurrentWord());
-			//gameService.deleteGame(gameId); SERVICE IMPLEMENTATION
-			return new ModelAndView("gameover");
-		} else if (gameService.isFound(gameId)) {//GAMESTATS TODO NOT HERE
-			request.setAttribute("theWord", game.getCurrentWord());
-			//gameService.deleteGame(gameId); SERVICE IMPLEMENTATION
-			return new ModelAndView("win");
+			GameStats gameStat = gameStatsService.updateGameStats(gameId);
+			UserStats stat = userStatsService.update(game);
+			rankService.saveRank(stat, gameStat);
+			return new ModelAndView(gameService.resultWord(gameId));
 		}
-		//TODO FIX BUSSINES LOGIC END HERE - BE COOL, YOU'RE DOING GREA! ;)
-		//AFTER THAT YOU COULD RELAX, FIX IT TOMMOROW!
-		//1:37 AM 7/28/2020
+
 		return new ModelAndView("redirect:/games/" + gameId);
 	}
 

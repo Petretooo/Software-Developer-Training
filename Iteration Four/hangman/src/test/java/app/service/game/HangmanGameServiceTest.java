@@ -11,6 +11,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import app.model.Game;
+import app.model.User;
 import app.repository.HangmanRepository;
 import app.service.alphabet.AlphabetService;
 import app.service.game.HangmanGameServiceImpl;
@@ -42,17 +43,18 @@ public class HangmanGameServiceTest {//TODO
   public void init() {
     Mockito.when(word.randomWordGenerator()).thenReturn("WORD");
     Mockito.when(repo.getGame(Mockito.anyString())).thenReturn(game);
+    
+    User user = new User();
 
     game.setNumberTries(5);
     game.setCurrentWord("WORD");
-    game.setUsedCharacters(new ArrayList<String>());
     game.setId("1");
     char[] hidden = new char[game.getCurrentWord().length()];
     for (int i = 0; i < hidden.length; i++) {
       hidden[i] = '_';
     }
     game.setHiddenWord(hidden);
-    game = gameService.createGame();
+    game = gameService.createGame(user);
   }
   
   @Test
@@ -121,13 +123,14 @@ public class HangmanGameServiceTest {//TODO
     for (String letter : alphabet) {
       gameService.enterCharacter(game.getId(), letter);
     }
-    assertThat(gameService.isFound(game.getId())).isTrue();
+    assertThat(gameService.resultWord(game.getId())).equals("win");
   }
   
   @Test
   public void Should_ReturnTrue_When_DeleteGameCorrectly() {
     Mockito.when(repo.removeGame(Mockito.anyString(), Mockito.any())).thenReturn(true);
-    assertThat(gameService.deleteGame(game.getId(), game)).isTrue();
+    gameService.deleteGame(game.getId());
+    assertThat(gameService.getGame(game.getId())).isNull();
   }
 
   @Test

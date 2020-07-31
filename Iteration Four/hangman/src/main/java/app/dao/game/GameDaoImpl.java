@@ -51,7 +51,7 @@ public class GameDaoImpl implements GameDao{
 	@Transactional
 	@Override
 	public void save(Game entity) {
-		entityManager.persist(entity);		
+		entityManager.persist(entity);
 	}
 	
 	@Transactional

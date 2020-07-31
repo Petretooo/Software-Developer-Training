@@ -1,6 +1,5 @@
 package app.model;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -34,12 +33,27 @@ public class User {
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	@NonNull
 	Set<Game> games;
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private Set<UserStats> userStats;
 
-	public void add(Game game) {
-		if (games == null) {
-			games = new HashSet<Game>();
-		}
-		games.add(game);
-//		game.setUser(this);
-	}
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL )
+	private Set<Rank> rank;
+	
+	
+//	public void addGame(Game game) {	
+//		if (games == null) {
+//			games = new HashSet<Game>();
+//		}
+//		games.add(game);
+////		game.setUser(this);
+//	}
+//	
+//	public void addStats(UserStats userStat) {
+//		if (userStats == null) {
+//			userStats = new HashSet<UserStats>();
+//		}
+//		userStats.add(userStat);
+//		userStat.setUser(this);
+//	}
 }

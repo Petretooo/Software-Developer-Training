@@ -10,7 +10,7 @@ public interface UserService {
 	public User create(String username);
 	public void remove(String uesrId);
 	public List<User> getAllUsers();
-	public User getUser(String gameId);
+	public User getUser(String uesrId);
 	public void addGame(Game game, String userId);
 	
 }

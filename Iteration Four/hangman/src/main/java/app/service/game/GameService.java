@@ -13,7 +13,7 @@ public interface GameService {
 
   public void enterCharacter(String id, String letter);
 
-  public boolean isFound(String id);
+  public String resultWord(String id);
 
   public String getUsedLetters(String id);
 
