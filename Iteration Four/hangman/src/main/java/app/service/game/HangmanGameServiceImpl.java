@@ -21,15 +21,19 @@ public class HangmanGameServiceImpl implements GameService {
 
 	@Override
 	public void enterCharacter(String id, String letter) {
+
 		Game game = gameDao.get(id);
-		Character character = new Character();
-		character.setLetter(letter.charAt(0));
-		game.add(character);
-		alphabetService.saveCharacter(game.getId(), character);
+		if (letter.charAt(0) >= 'A' && letter.charAt(0) <= 'Z') {
+			Character character = new Character();
+			character.setLetter(letter.charAt(0));
+			game.add(character);
+			alphabetService.saveCharacter(game.getId(), character);
 
-		checkCharacterInWord(id, letter);
+			checkCharacterInWord(id, letter);
 
+		}
 		updateWord(game.getId());
+
 	}
 
 	private void checkCharacterInWord(String gameId, String letter) {
@@ -50,21 +54,12 @@ public class HangmanGameServiceImpl implements GameService {
 		while (index >= 0) {
 			try {
 				hidden[index] = letter.charAt(0);
-			} catch (StringIndexOutOfBoundsException ex) {
+			} catch (Exception ex) {
 				throw new CharacterNotFoundException("Character not found");
 			}
 			index = game.getCurrentWord().indexOf(letter, index + 1);
 		}
 	}
-//
-//	private void addLetterInCollection(String gameId, String letter) {
-////		Game game = hangmanRepo.getGame(gameId);
-////		if (letter.charAt(0) >= 'A' && letter.charAt(0) <= 'Z') {
-////			List<String> letters = game.getUsedCharacters();
-////			letters.add(letter);
-////			game.setUsedCharacters(letters);
-////		}
-//	}
 
 	public String updateWord(String id) {
 		Game game = gameDao.get(id);
@@ -102,10 +97,10 @@ public class HangmanGameServiceImpl implements GameService {
 	@Override
 	public String resultWord(String id) {
 		Game game = gameDao.get(id);
-		if(game.getNumberTries() <= 0) {
+		if (game.getNumberTries() <= 0) {
 			return "gameover";
 		}
-		if(game.getCurrentWord().contentEquals(new String(game.getHiddenWord()))) {
+		if (game.getCurrentWord().contentEquals(new String(game.getHiddenWord()))) {
 			return "win";
 		}
 		return null;
