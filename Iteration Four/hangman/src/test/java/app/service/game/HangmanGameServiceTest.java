@@ -148,8 +148,7 @@ public class HangmanGameServiceTest {// TODO
 
 		assertThatThrownBy(() -> {
 			gameService.enterCharacter(game.getId(), null);
-		})
-		.isInstanceOf(CharacterNotFoundException.class);
+		}).isInstanceOf(NullPointerException.class);
 
 	}
 

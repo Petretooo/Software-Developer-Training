@@ -21,47 +21,55 @@ public class RankSpecification implements Specification<Rank> {
 	private static final long serialVersionUID = 1L;
 	private List<SearchCriteria> list;
 
-    public RankSpecification() {
-        this.list = new ArrayList<>();
-    }
+	public RankSpecification() {
+		this.list = new ArrayList<>();
+	}
 
-    public void add(SearchCriteria criteria) {
-        list.add(criteria);
-    }
-    
+	public void add(SearchCriteria criteria) {
+		list.add(criteria);
+	}
+
 	@Override
 	public Predicate toPredicate(Root<Rank> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
 		List<Predicate> predicates = new ArrayList<Predicate>();
-		
-	     for (SearchCriteria criteria : list) {
-	            if (criteria.getOperation().equals(SearchOperation.GREATER_THAN)) {
-	                predicates.add(criteriaBuilder.greaterThan(
-	                        root.get(criteria.getKey()), criteria.getValue().toString()));
-	            } else if (criteria.getOperation().equals(SearchOperation.LESS_THAN)) {
-	                predicates.add(criteriaBuilder.lessThan(
-	                        root.get(criteria.getKey()), criteria.getValue().toString()));
-	            } else if (criteria.getOperation().equals(SearchOperation.GREATER_THAN_EQUAL)) {
-	                predicates.add(criteriaBuilder.greaterThanOrEqualTo(
-	                        root.get(criteria.getKey()), (LocalDate)criteria.getValue()));
-	            } else if (criteria.getOperation().equals(SearchOperation.LESS_THAN_EQUAL)) {
-	                predicates.add(criteriaBuilder.lessThanOrEqualTo(
-	                        root.get(criteria.getKey()), (LocalDate)criteria.getValue()));
-	            } else if (criteria.getOperation().equals(SearchOperation.NOT_EQUAL)) {
-	                predicates.add(criteriaBuilder.notEqual(
-	                        root.get(criteria.getKey()), criteria.getValue()));
-	            } else if (criteria.getOperation().equals(SearchOperation.EQUAL)) {
-	                predicates.add(criteriaBuilder.equal(
-	                        root.get(criteria.getKey()), criteria.getValue()));
-	            } else if (criteria.getOperation().equals(SearchOperation.IN)) {
-	                predicates.add(criteriaBuilder.in(root.get(criteria.getKey())).value(criteria.getValue()));
-	            } else if (criteria.getOperation().equals(SearchOperation.NOT_IN)) {
-	                predicates.add(criteriaBuilder.not(root.get(criteria.getKey())).in(criteria.getValue()));
-	            }
 
-	        }
-	     
-	     return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
+		for (SearchCriteria criteria : list) {
+
+			switch (criteria.getOperation()) {
+			case GREATER_THAN:
+				predicates
+						.add(criteriaBuilder.greaterThan(root.get(criteria.getKey()), criteria.getValue().toString()));
+				break;
+			case LESS_THAN:
+				predicates.add(criteriaBuilder.lessThan(root.get(criteria.getKey()), criteria.getValue().toString()));
+				break;
+			case GREATER_THAN_EQUAL:
+				predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get(criteria.getKey()),
+						(LocalDate) criteria.getValue()));
+				break;
+			case LESS_THAN_EQUAL:
+				predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get(criteria.getKey()),
+						(LocalDate) criteria.getValue()));
+				break;
+			case NOT_EQUAL:
+				predicates.add(criteriaBuilder.notEqual(root.get(criteria.getKey()), criteria.getValue()));
+				break;
+			case EQUAL:
+				predicates.add(criteriaBuilder.equal(root.get(criteria.getKey()), criteria.getValue()));
+				break;
+			case IN:
+				predicates.add(criteriaBuilder.in(root.get(criteria.getKey())).value(criteria.getValue()));
+				break;
+			case NOT_IN:
+				predicates.add(criteriaBuilder.not(root.get(criteria.getKey())).in(criteria.getValue()));
+				break;
+			default:
+				break;
+			}
+
+		}
+
+		return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
 	}
-	
-	
+
 }

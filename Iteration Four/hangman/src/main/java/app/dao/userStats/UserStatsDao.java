@@ -10,8 +10,4 @@ public interface UserStatsDao extends JpaRepository<UserStats, String> {
 	
 	List<UserStats> findByIdUserStats(String userId);
 
-//	public UserStats get(String id);
-//	public void remove(String userStatsId);
-//	public List<UserStats> getAll();
-//	public void save(UserStats entity);
 }

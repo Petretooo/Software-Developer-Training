@@ -41,19 +41,4 @@ public class User {
 	private Set<Rank> rank;
 	
 	
-//	public void addGame(Game game) {	
-//		if (games == null) {
-//			games = new HashSet<Game>();
-//		}
-//		games.add(game);
-////		game.setUser(this);
-//	}
-//	
-//	public void addStats(UserStats userStat) {
-//		if (userStats == null) {
-//			userStats = new HashSet<UserStats>();
-//		}
-//		userStats.add(userStat);
-//		userStat.setUser(this);
-//	}
 }

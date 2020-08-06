@@ -35,7 +35,6 @@ public class GameoverController {
 		User user = userService.create(username);
 
 		Game game = gameService.createGame(user);
-		//user.addGame(game);
 
 		return "redirect:/games/" + game.getId();
 	}
