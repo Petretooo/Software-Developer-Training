@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import app.model.Rank;
+import app.model.Ranking;
 import app.service.rank.RankService;
 
 @Controller
@@ -25,14 +25,14 @@ public class RankController {
 	
 	@GetMapping("/topTen")
 	public String getTopTen(Model model) {
-		List<Rank> rankList = rankService.getRankList();
+		List<Ranking> rankList = rankService.getRankList();
 		model.addAttribute("show", rankList);
 		return "rankTopTen";
 	}
 	
 	@GetMapping("/topMonth")
 	public String getTopForMonth(Model model) {
-		List<Rank> rankList = rankService.getRankByMonth();
+		List<Ranking> rankList = rankService.getRankByMonth();
 		model.addAttribute("show", rankList);
 		return "rankTopForMonth";
 	}

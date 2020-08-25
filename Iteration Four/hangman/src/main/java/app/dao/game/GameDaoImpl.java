@@ -11,7 +11,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import app.model.Game;
 
@@ -21,13 +20,11 @@ public class GameDaoImpl implements GameDao{
 	@PersistenceContext
 	private EntityManager entityManager;
 	
-	@Transactional
 	@Override
 	public Game get(String id) {
 		return entityManager.find(Game.class, id);
 	}
 
-	@Transactional
 	@Override
 	public void remove(String gameId) {
 		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
@@ -37,7 +34,6 @@ public class GameDaoImpl implements GameDao{
 		entityManager.createQuery(criteriaDelete).executeUpdate();
 	}
 
-	@Transactional
 	@Override
 	public List<Game> getAll() {
 		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
@@ -48,13 +44,11 @@ public class GameDaoImpl implements GameDao{
 		return allQuery.getResultList();
 	}
 	
-	@Transactional
 	@Override
 	public void save(Game entity) {
 		entityManager.persist(entity);
 	}
 	
-	@Transactional
 	@Override
 	public void updateGame(Game game, String gameId) {
 		Game currentGame = entityManager.find(Game.class, gameId);

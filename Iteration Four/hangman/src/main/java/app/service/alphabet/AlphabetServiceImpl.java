@@ -7,10 +7,12 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import app.dao.character.CharacterDao;
+import app.dao.symbol.SymbolDao;
 
 @Service
+@Transactional
 public class AlphabetServiceImpl implements AlphabetService {
 
 	private Map<Character, Boolean> entryAlphabet = Map.ofEntries(entry('A', false), entry('B', false),
@@ -20,19 +22,18 @@ public class AlphabetServiceImpl implements AlphabetService {
 			entry('R', false), entry('S', false), entry('T', false), entry('U', false), entry('V', false),
 			entry('W', false), entry('X', false), entry('Y', false), entry('Z', false));
 
-	private Map<Character, Boolean> alphabet;
 	private Map<String, Map<Character, Boolean>> gameAlphabet;
 
 	@Autowired
-	private CharacterDao characterDao;
+	private SymbolDao characterDao;
 
 	public AlphabetServiceImpl() {
-		gameAlphabet = new HashMap<String, Map<Character, Boolean>>();
+		gameAlphabet = new HashMap<>();
 	}
 
 	@Override
 	public void setGameAlphabet(String gameId) {
-		alphabet = new HashMap<Character, Boolean>(entryAlphabet);
+		Map<Character, Boolean> alphabet = new HashMap<>(entryAlphabet);
 		gameAlphabet.put(gameId, alphabet);
 	}
 
@@ -42,7 +43,7 @@ public class AlphabetServiceImpl implements AlphabetService {
 	}
 
 	@Override
-	public void saveCharacter(String gameId, app.model.Character character) {
+	public void saveCharacter(String gameId, app.model.Symbol character) {
 		characterDao.save(character);
 		gameAlphabet.get(gameId).replace(character.getLetter(), true);
 	}

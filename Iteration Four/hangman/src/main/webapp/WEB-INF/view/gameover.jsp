@@ -6,7 +6,7 @@
 <t:wrapper>
 	<body class="text-center" data-gr-c-s-loaded="true">
 		<h2>Hangman Game</h2>
-		<form method="post" action="/hangman/">
+		<form method="post" action="/hangman/gameover">
 			<div
 				class="cover-container d-flex w-100 h-30 p-3 mx-auto flex-column">
 				<h2>You lose!</h2>
@@ -18,6 +18,7 @@
 				<button id="buttonGame" class="btn btn-lg btn-secondary"
 					type="submit">New Game</button>
 				<br /> <br />
+				<input hidden="true" value="/gameover" name="errorPage">
 			</div>
 		</form>
 		<a class="btn btn-lg btn-secondary" href="/hangman">Back</a>

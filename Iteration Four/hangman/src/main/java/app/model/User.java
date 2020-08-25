@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -17,7 +16,6 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 @Entity
-@Table(name = "users")
 @Data
 @NoArgsConstructor
 public class User {
@@ -25,9 +23,9 @@ public class User {
 	@Id
 	@GeneratedValue(generator = "UUID")
 	@GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-	@Column(name = "user_id")
+	@Column
 	private String userId;
-	@Column(name = "username")
+	@Column
 	private String username;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
@@ -38,7 +36,7 @@ public class User {
 	private Set<UserStats> userStats;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL )
-	private Set<Rank> rank;
+	private Set<Ranking> rank;
 	
 	
 }

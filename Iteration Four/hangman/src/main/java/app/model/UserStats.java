@@ -7,7 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -15,7 +14,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "user_stats")
 @Data
 @NoArgsConstructor
 public class UserStats {
@@ -28,13 +26,13 @@ public class UserStats {
 	  )
     @Column(name = "user_stats_id")
 	private String id;
-	@Column(name = "score")
+	@Column
 	private int score;
-	@Column(name = "word")
+	@Column
 	private String word;
-	@Column(name = "id_user_stats", insertable =false, updatable =false)
+	@Column(name = "user_id", insertable =false, updatable =false)
 	private String idUserStats;
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_user_stats")
+	@JoinColumn(name = "user_id")
 	private User user;
 }

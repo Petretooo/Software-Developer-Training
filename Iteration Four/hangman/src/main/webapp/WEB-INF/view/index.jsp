@@ -22,6 +22,8 @@
 						<br>
 						<br>
 					<a class="btn btn-lg btn-secondary" href="/hangman/rank">Rank</a>
+					<br/>
+					<a class="btn btn-lg btn-secondary" href="/hangman/word/page/1">Words</a>
 				</div>
 			</div>
 		</form>

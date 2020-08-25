@@ -13,7 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -22,7 +21,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "games")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -33,26 +31,26 @@ public class Game {
 	@GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
 	@Column(name = "game_id")
 	private String id;
-	@Column(name = "number_tries")
+	@Column
 	private int numberTries;
-	@Column(name = "current_word")
+	@Column
 	private String currentWord;
-	@Column(name = "hidden_word")
+	@Column
 	private char[] hiddenWord;
 
 	@OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
-	private Set<Character> characters;
+	private Set<Symbol> characters;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_user_game")
+	@JoinColumn(name = "user_id")
 	private User user;
 
 	@OneToOne(mappedBy = "game")
 	private GameStats gameStats;
 
-	public void add(Character character) {
+	public void add(Symbol character) {
 		if (characters == null) {
-			characters = new HashSet<Character>();
+			characters = new HashSet<Symbol>();
 		}
 		characters.add(character);
 		character.setGame(this);

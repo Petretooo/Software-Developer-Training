@@ -2,7 +2,7 @@ package app.service.game;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import java.util.ArrayList;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,11 +14,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import app.dao.game.GameDao;
 import app.model.Game;
 import app.model.User;
-import app.repository.HangmanRepository;
+import app.model.Word;
 import app.service.alphabet.AlphabetService;
-import app.service.game.HangmanGameServiceImpl;
 import app.service.word.WordService;
-import app.util.CharacterNotFoundException;
 
 @ExtendWith(MockitoExtension.class)
 public class HangmanGameServiceTest {// TODO
@@ -41,7 +39,10 @@ public class HangmanGameServiceTest {// TODO
 
 	@BeforeEach
 	public void init() {
-		Mockito.when(word.randomWordGenerator()).thenReturn("WORD");
+		Word w = new Word();
+		w.setWordName("WORD");
+		w.setLevelDifficulty(4);
+		Mockito.when(word.randomWordGenerator()).thenReturn(w);
 		Mockito.when(gameDao.get(null)).thenReturn(game);
 		User user = new User();
 		user.setUserId("12");

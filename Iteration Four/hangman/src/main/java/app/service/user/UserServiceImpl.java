@@ -3,6 +3,7 @@ package app.service.user;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import app.dao.user.UserDao;
 import app.model.Game;
@@ -11,6 +12,7 @@ import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
+@Transactional
 public class UserServiceImpl implements UserService {
 
 	private UserDao userDao;

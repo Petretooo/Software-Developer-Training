@@ -3,6 +3,7 @@ package app.service.gameStats;
 import java.time.LocalDate;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import app.dao.gameStats.GameStatsDao;
 import app.model.Game;
@@ -12,6 +13,7 @@ import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
+@Transactional
 public class GameStatsServiceImpl implements GameStatsService {
 
 	private GameStatsDao gameStatsDao;
@@ -38,11 +40,7 @@ public class GameStatsServiceImpl implements GameStatsService {
 		Game game = gameService.getGame(gameId);
 		gameStat.setGameEnd(LocalDate.now());
 		gameStat.setWrongTries(5 - game.getNumberTries());
-		if(gameService.resultWord(gameId).equals("win")) {
-			gameStat.setWordFound(true);
-		}else {
-			gameStat.setWordFound(false);
-		}
+		gameStat.setWordFound(gameService.resultWord(gameId).equals("win"));
 		
 		return gameStat;
 	}

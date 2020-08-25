@@ -8,5 +8,5 @@ public interface AlphabetService {
   
   public Map<Character, Boolean> getCurrentGameAlphabet(String gameId);
   
-  public void saveCharacter(String gameId, app.model.Character character);
+  public void saveCharacter(String gameId, app.model.Symbol character);
 }

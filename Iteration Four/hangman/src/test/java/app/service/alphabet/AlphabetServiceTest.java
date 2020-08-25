@@ -2,21 +2,17 @@ package app.service.alphabet;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.Map;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Spy;
 
-import app.dao.character.CharacterDao;
-import app.model.Game;
+import app.dao.symbol.SymbolDao;
 
 public class AlphabetServiceTest {
 
 	@Mock
-	private CharacterDao characterDao;
+	private SymbolDao characterDao;
 
 	@InjectMocks
 	private AlphabetService alphabetService;

@@ -1,9 +1,10 @@
 package app.service.game;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import app.dao.game.GameDao;
-import app.model.Character;
+import app.model.Symbol;
 import app.model.Game;
 import app.model.User;
 import app.service.alphabet.AlphabetService;
@@ -13,6 +14,7 @@ import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
+@Transactional
 public class HangmanGameServiceImpl implements GameService {
 
 	private WordService wordService;
@@ -24,7 +26,7 @@ public class HangmanGameServiceImpl implements GameService {
 
 		Game game = gameDao.get(id);
 		if (letter.charAt(0) >= 'A' && letter.charAt(0) <= 'Z') {
-			Character character = new Character();
+			Symbol character = new Symbol();
 			character.setLetter(letter.charAt(0));
 			game.add(character);
 			alphabetService.saveCharacter(game.getId(), character);
@@ -74,7 +76,7 @@ public class HangmanGameServiceImpl implements GameService {
 	public Game createGame(User user) {
 		Game game = new Game();
 		game.setNumberTries(5);
-		game.setCurrentWord(wordService.randomWordGenerator());
+		game.setCurrentWord(wordService.randomWordGenerator().getWordName());
 
 		String firstLetter = game.getCurrentWord().substring(0, 1);
 		String lastLetter = game.getCurrentWord().substring(game.getCurrentWord().length() - 1);
@@ -110,7 +112,7 @@ public class HangmanGameServiceImpl implements GameService {
 	public String getUsedLetters(String id) {
 		Game game = gameDao.get(id);
 		String words = "";
-		for (Character letter : game.getCharacters()) {
+		for (Symbol letter : game.getCharacters()) {
 			words += letter.getLetter() + ", ";
 		}
 		return words;

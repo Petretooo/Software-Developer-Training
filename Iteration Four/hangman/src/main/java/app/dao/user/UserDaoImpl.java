@@ -11,7 +11,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import app.model.User;
 
@@ -21,18 +20,18 @@ public class UserDaoImpl implements UserDao {
 	@PersistenceContext
 	EntityManager entityManager;
 
-	@Transactional
+	@Override
 	public User save(User entity) {
 		entityManager.persist(entity);
 		return entity;
 	}
 
-	@Transactional
+	@Override
 	public User get(String id) {
 		return entityManager.find(User.class, id);
 	}
 
-	@Transactional
+	@Override
 	public void remove(String id) {
 		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
 		CriteriaDelete<User> criteriaDelete = cb.createCriteriaDelete(User.class);
@@ -41,7 +40,7 @@ public class UserDaoImpl implements UserDao {
 		entityManager.createQuery(criteriaDelete).executeUpdate();
 	}
 
-	@Transactional
+	@Override
 	public List<User> getAll() {
 		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
 		CriteriaQuery<User> cq = cb.createQuery(User.class);
@@ -50,7 +49,7 @@ public class UserDaoImpl implements UserDao {
 		return entityManager.createQuery(cq).getResultList();
 	}
 
-	@Transactional
+	@Override
 	public User getByName(String username) {
 		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
 		CriteriaQuery<User> cq = cb.createQuery(User.class);

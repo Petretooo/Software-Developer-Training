@@ -5,7 +5,7 @@ wrong_tries int,
 game_start date,
 game_end date,
 game_id varchar(36) UNIQUE,
-CONSTRAINT `fk_game__stats_game` FOREIGN KEY(game_id) REFERENCES games(game_id)
+CONSTRAINT `fk_game__stats_game` FOREIGN KEY(game_id) REFERENCES game(game_id)
 ON DELETE CASCADE
 ON UPDATE CASCADE
 );

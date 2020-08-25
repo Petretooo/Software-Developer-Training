@@ -3,6 +3,7 @@ package app.service.userStats;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import app.dao.gameStats.GameStatsDao;
 import app.dao.userStats.UserStatsDao;
@@ -14,6 +15,7 @@ import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
+@Transactional
 public class UserStatsServiceImpl implements UserStatsService{
 
 	private UserStatsDao userStatsDao;
