@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="RankServiceService" targetNamespace="http://localhost:8080/hangman/soap/rank" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://localhost:8080/hangman/soap/rank" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+<xs:schema xmlns:tns="http://localhost:8080/hangman/soap/rank" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://localhost:8080/hangman/soap/rank" version="1.0">
+
+  <xs:complexType name="ranking">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="date" type="tns:localDate"/>
+      <xs:element minOccurs="0" name="id" type="xs:string"/>
+      <xs:element minOccurs="0" name="idUserRank" type="xs:string"/>
+      <xs:element name="score" type="xs:int"/>
+      <xs:element minOccurs="0" name="user" type="tns:user"/>
+      <xs:element minOccurs="0" name="word" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="localDate">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="user">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="games" nillable="true" type="tns:game"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="rank" nillable="true" type="tns:ranking"/>
+      <xs:element minOccurs="0" name="userId" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="userStats" nillable="true" type="tns:userStats"/>
+      <xs:element minOccurs="0" name="username" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="game">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="characters" nillable="true" type="tns:symbol"/>
+      <xs:element minOccurs="0" name="currentWord" type="xs:string"/>
+      <xs:element minOccurs="0" name="gameStats" type="tns:gameStats"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="hiddenWord" nillable="true" type="xs:unsignedShort"/>
+      <xs:element minOccurs="0" name="id" type="xs:string"/>
+      <xs:element name="numberTries" type="xs:int"/>
+      <xs:element minOccurs="0" name="user" type="tns:user"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="symbol">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="characterId" type="xs:string"/>
+      <xs:element minOccurs="0" name="game" type="tns:game"/>
+      <xs:element name="letter" type="xs:unsignedShort"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="gameStats">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="game" type="tns:game"/>
+      <xs:element minOccurs="0" name="gameEnd" type="tns:localDate"/>
+      <xs:element minOccurs="0" name="gameId" type="xs:string"/>
+      <xs:element minOccurs="0" name="gameStart" type="tns:localDate"/>
+      <xs:element minOccurs="0" name="id" type="xs:string"/>
+      <xs:element name="wordFound" type="xs:boolean"/>
+      <xs:element name="wrongTries" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="userStats">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" type="xs:string"/>
+      <xs:element minOccurs="0" name="idUserStats" type="xs:string"/>
+      <xs:element name="score" type="xs:int"/>
+      <xs:element minOccurs="0" name="user" type="tns:user"/>
+      <xs:element minOccurs="0" name="word" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="#all" name="rankingArray">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="item" nillable="true" type="tns:ranking"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getRankByMonthResponse">
+    <wsdl:part name="return" type="tns:rankingArray">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="saveRankResponse">
+    <wsdl:part name="return" type="tns:ranking">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getRankByMonth">
+  </wsdl:message>
+  <wsdl:message name="getRankList">
+  </wsdl:message>
+  <wsdl:message name="saveRank">
+    <wsdl:part name="arg0" type="tns:userStats">
+    </wsdl:part>
+    <wsdl:part name="arg1" type="tns:gameStats">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getRankListResponse">
+    <wsdl:part name="return" type="tns:rankingArray">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="removeFromRankResponse">
+  </wsdl:message>
+  <wsdl:message name="removeFromRank">
+    <wsdl:part name="arg0" type="xsd:string">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="RankService">
+    <wsdl:operation name="getRankByMonth">
+      <wsdl:input name="getRankByMonth" message="tns:getRankByMonth">
+    </wsdl:input>
+      <wsdl:output name="getRankByMonthResponse" message="tns:getRankByMonthResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getRankList">
+      <wsdl:input name="getRankList" message="tns:getRankList">
+    </wsdl:input>
+      <wsdl:output name="getRankListResponse" message="tns:getRankListResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="saveRank">
+      <wsdl:input name="saveRank" message="tns:saveRank">
+    </wsdl:input>
+      <wsdl:output name="saveRankResponse" message="tns:saveRankResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="removeFromRank">
+      <wsdl:input name="removeFromRank" message="tns:removeFromRank">
+    </wsdl:input>
+      <wsdl:output name="removeFromRankResponse" message="tns:removeFromRankResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="RankServiceServiceSoapBinding" type="tns:RankService">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getRankByMonth">
+      <soap:operation soapAction="" style="rpc"/>
+      <wsdl:input name="getRankByMonth">
+        <soap:body use="literal" namespace="http://localhost:8080/hangman/soap/rank"/>
+      </wsdl:input>
+      <wsdl:output name="getRankByMonthResponse">
+        <soap:body use="literal" namespace="http://localhost:8080/hangman/soap/rank"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getRankList">
+      <soap:operation soapAction="" style="rpc"/>
+      <wsdl:input name="getRankList">
+        <soap:body use="literal" namespace="http://localhost:8080/hangman/soap/rank"/>
+      </wsdl:input>
+      <wsdl:output name="getRankListResponse">
+        <soap:body use="literal" namespace="http://localhost:8080/hangman/soap/rank"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="saveRank">
+      <soap:operation soapAction="" style="rpc"/>
+      <wsdl:input name="saveRank">
+        <soap:body use="literal" namespace="http://localhost:8080/hangman/soap/rank"/>
+      </wsdl:input>
+      <wsdl:output name="saveRankResponse">
+        <soap:body use="literal" namespace="http://localhost:8080/hangman/soap/rank"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="removeFromRank">
+      <soap:operation soapAction="" style="rpc"/>
+      <wsdl:input name="removeFromRank">
+        <soap:body use="literal" namespace="http://localhost:8080/hangman/soap/rank"/>
+      </wsdl:input>
+      <wsdl:output name="removeFromRankResponse">
+        <soap:body use="literal" namespace="http://localhost:8080/hangman/soap/rank"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="RankServiceService">
+    <wsdl:port name="RankServicePort" binding="tns:RankServiceServiceSoapBinding">
+      <soap:address location="http://localhost:9090/RankServicePort"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
