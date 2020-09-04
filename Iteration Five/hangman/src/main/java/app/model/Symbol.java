@@ -30,7 +30,7 @@ public class Symbol {
 	@Column
 	private char letter;
 
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "game_id")
-	private Game game;
+//	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//	@JoinColumn(name = "game_id")
+//	private Game game;
 }

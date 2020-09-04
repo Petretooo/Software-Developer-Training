@@ -7,7 +7,7 @@ import app.model.Word;
 public interface WordService {
   public Word randomWordGenerator();
   
-  public void saveWord(String word, int levelDif);
+  public Word saveWord(String word, int levelDif);
   public void deleteWord(String word);
   public List<Word> findAllWords();
   public List<Word> findByPage(int page);

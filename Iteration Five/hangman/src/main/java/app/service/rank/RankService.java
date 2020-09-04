@@ -3,24 +3,30 @@ package app.service.rank;
 import java.util.List;
 
 import javax.jws.WebMethod;
+import javax.jws.WebResult;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
-import javax.jws.soap.SOAPBinding.Style;
-import javax.jws.soap.SOAPBinding.Use;
 
+import app.dto.RankingDto;
+import app.dto.RankingDtoList;
 import app.model.GameStats;
 import app.model.Ranking;
 import app.model.UserStats;
+import jakarta.jws.WebParam;
 
-@WebService(targetNamespace = "http://localhost:8080/hangman/soap/rank")
-@SOAPBinding(style = Style.RPC, use = Use.LITERAL)
+
+@WebService
+@SOAPBinding
 public interface RankService {
 	
-	public Ranking saveRank(UserStats stat, GameStats gameStat);
-	public void removeFromRank(String rankId);
-	@WebMethod
-	public List<Ranking> getRankList();
-	@WebMethod
-	public List<Ranking> getRankByMonth();
-
+	@WebMethod(operationName = "SaveRank")
+	public Ranking saveRank(@WebParam UserStats stat, @WebParam GameStats gameStat);
+	@WebMethod(operationName = "RemoveFromRank")
+	public void removeFromRank(@WebParam String rankId);
+	@WebMethod(operationName = "GetRankList")
+	//@WebResult(name = "rankList")
+	public RankingDtoList getRankList();
+	@WebMethod(operationName = "GetRankByMonth")
+	//@WebResult(name = "rankListTopMonth")
+	public RankingDtoList getRankByMonth();
 }

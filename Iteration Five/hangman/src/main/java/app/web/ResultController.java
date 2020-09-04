@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import app.model.Game;
 import app.model.User;
 import app.service.game.GameService;
+import app.service.gameStats.GameStatsService;
 import app.service.user.UserService;
+import app.service.userStats.UserStatsService;
 
 @Controller
 public class ResultController {
@@ -20,7 +22,10 @@ public class ResultController {
 	private UserService userService;
 	@Autowired
 	private GameService gameService;
-	
+	@Autowired
+	private GameStatsService gameStatsService;
+	@Autowired
+	private UserStatsService userStatsService;
 	
 	@GetMapping("/win")
 	public String win() {
@@ -42,8 +47,10 @@ public class ResultController {
 		}
 		
 		User user = userService.create(username);
-
 		Game game = gameService.createGame(user);
+		
+		userStatsService.save(user, game.getCurrentWord());
+		gameStatsService.saveGameStats(game);
 		
 		return "redirect:/games/" + game.getId();
 	}

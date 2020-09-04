@@ -10,4 +10,5 @@ public interface GameDao {
 	public List<Game> getAll();
 	public void save(Game entity);
 	public void updateGame(Game game, String gameId);
+	public List<Game> getRunningGames();
 }

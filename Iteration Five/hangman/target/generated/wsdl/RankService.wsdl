@@ -1,21 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions name="RankServiceService" targetNamespace="http://localhost:8080/hangman/soap/rank" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://localhost:8080/hangman/soap/rank" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+<wsdl:definitions name="RankServiceService" targetNamespace="http://rank.service.app/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://rank.service.app/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
   <wsdl:types>
-<xs:schema xmlns:tns="http://localhost:8080/hangman/soap/rank" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://localhost:8080/hangman/soap/rank" version="1.0">
+<xs:schema xmlns:tns="http://rank.service.app/" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="unqualified" targetNamespace="http://rank.service.app/" version="1.0">
 
-  <xs:complexType name="ranking">
+  <xs:element name="GetRankByMonth" type="tns:GetRankByMonth"/>
+
+  <xs:element name="GetRankByMonthResponse" type="tns:GetRankByMonthResponse"/>
+
+  <xs:element name="GetRankList" type="tns:GetRankList"/>
+
+  <xs:element name="GetRankListResponse" type="tns:GetRankListResponse"/>
+
+  <xs:element name="RemoveFromRank" type="tns:RemoveFromRank"/>
+
+  <xs:element name="RemoveFromRankResponse" type="tns:RemoveFromRankResponse"/>
+
+  <xs:element name="SaveRank" type="tns:SaveRank"/>
+
+  <xs:element name="SaveRankResponse" type="tns:SaveRankResponse"/>
+
+  <xs:element name="rankingList" type="tns:rankingDtoList"/>
+
+  <xs:element name="rankingSoap" type="tns:rankingDto"/>
+
+  <xs:complexType name="GetRankByMonth">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="GetRankByMonthResponse">
     <xs:sequence>
-      <xs:element minOccurs="0" name="date" type="tns:localDate"/>
-      <xs:element minOccurs="0" name="id" type="xs:string"/>
-      <xs:element minOccurs="0" name="idUserRank" type="xs:string"/>
-      <xs:element name="score" type="xs:int"/>
-      <xs:element minOccurs="0" name="user" type="tns:user"/>
-      <xs:element minOccurs="0" name="word" type="xs:string"/>
+      <xs:element minOccurs="0" name="return" type="tns:rankingDtoList"/>
     </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="rankingDtoList">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="dtoList" nillable="true" type="tns:rankingDto"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="rankingDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="idUserRank" type="xs:string"/>
+      <xs:element minOccurs="0" name="username" type="xs:string"/>
+      <xs:element minOccurs="0" name="word" type="xs:string"/>
+      <xs:element name="score" type="xs:int"/>
+      <xs:element minOccurs="0" name="date" type="tns:localDate"/>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:string"/>
   </xs:complexType>
 
   <xs:complexType final="extension restriction" name="localDate">
     <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="GetRankList">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="GetRankListResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:rankingDtoList"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RemoveFromRank">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RemoveFromRankResponse">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="SaveRank">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="tns:userStats"/>
+      <xs:element minOccurs="0" name="arg1" type="tns:gameStats"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="userStats">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" type="xs:string"/>
+      <xs:element minOccurs="0" name="idUserStats" type="xs:string"/>
+      <xs:element name="score" type="xs:int"/>
+      <xs:element minOccurs="0" name="user" type="tns:user"/>
+      <xs:element minOccurs="0" name="word" type="xs:string"/>
+    </xs:sequence>
   </xs:complexType>
 
   <xs:complexType name="user">
@@ -43,7 +116,6 @@
   <xs:complexType name="symbol">
     <xs:sequence>
       <xs:element minOccurs="0" name="characterId" type="xs:string"/>
-      <xs:element minOccurs="0" name="game" type="tns:game"/>
       <xs:element name="letter" type="xs:unsignedShort"/>
     </xs:sequence>
   </xs:complexType>
@@ -60,114 +132,119 @@
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="userStats">
+  <xs:complexType name="ranking">
     <xs:sequence>
+      <xs:element minOccurs="0" name="date" type="tns:localDate"/>
       <xs:element minOccurs="0" name="id" type="xs:string"/>
-      <xs:element minOccurs="0" name="idUserStats" type="xs:string"/>
+      <xs:element minOccurs="0" name="idUserRank" type="xs:string"/>
       <xs:element name="score" type="xs:int"/>
       <xs:element minOccurs="0" name="user" type="tns:user"/>
       <xs:element minOccurs="0" name="word" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType final="#all" name="rankingArray">
+  <xs:complexType name="SaveRankResponse">
     <xs:sequence>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="item" nillable="true" type="tns:ranking"/>
+      <xs:element minOccurs="0" name="return" type="tns:ranking"/>
     </xs:sequence>
   </xs:complexType>
 
 </xs:schema>
   </wsdl:types>
-  <wsdl:message name="getRankByMonthResponse">
-    <wsdl:part name="return" type="tns:rankingArray">
+  <wsdl:message name="GetRankByMonth">
+    <wsdl:part name="parameters" element="tns:GetRankByMonth">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="saveRankResponse">
-    <wsdl:part name="return" type="tns:ranking">
+  <wsdl:message name="GetRankList">
+    <wsdl:part name="parameters" element="tns:GetRankList">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="getRankByMonth">
-  </wsdl:message>
-  <wsdl:message name="getRankList">
-  </wsdl:message>
-  <wsdl:message name="saveRank">
-    <wsdl:part name="arg0" type="tns:userStats">
-    </wsdl:part>
-    <wsdl:part name="arg1" type="tns:gameStats">
+  <wsdl:message name="GetRankListResponse">
+    <wsdl:part name="parameters" element="tns:GetRankListResponse">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="getRankListResponse">
-    <wsdl:part name="return" type="tns:rankingArray">
+  <wsdl:message name="RemoveFromRank">
+    <wsdl:part name="parameters" element="tns:RemoveFromRank">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="removeFromRankResponse">
+  <wsdl:message name="SaveRank">
+    <wsdl:part name="parameters" element="tns:SaveRank">
+    </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="removeFromRank">
-    <wsdl:part name="arg0" type="xsd:string">
+  <wsdl:message name="RemoveFromRankResponse">
+    <wsdl:part name="parameters" element="tns:RemoveFromRankResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetRankByMonthResponse">
+    <wsdl:part name="parameters" element="tns:GetRankByMonthResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SaveRankResponse">
+    <wsdl:part name="parameters" element="tns:SaveRankResponse">
     </wsdl:part>
   </wsdl:message>
   <wsdl:portType name="RankService">
-    <wsdl:operation name="getRankByMonth">
-      <wsdl:input name="getRankByMonth" message="tns:getRankByMonth">
+    <wsdl:operation name="GetRankByMonth">
+      <wsdl:input name="GetRankByMonth" message="tns:GetRankByMonth">
     </wsdl:input>
-      <wsdl:output name="getRankByMonthResponse" message="tns:getRankByMonthResponse">
+      <wsdl:output name="GetRankByMonthResponse" message="tns:GetRankByMonthResponse">
     </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="getRankList">
-      <wsdl:input name="getRankList" message="tns:getRankList">
+    <wsdl:operation name="GetRankList">
+      <wsdl:input name="GetRankList" message="tns:GetRankList">
     </wsdl:input>
-      <wsdl:output name="getRankListResponse" message="tns:getRankListResponse">
+      <wsdl:output name="GetRankListResponse" message="tns:GetRankListResponse">
     </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="saveRank">
-      <wsdl:input name="saveRank" message="tns:saveRank">
+    <wsdl:operation name="RemoveFromRank">
+      <wsdl:input name="RemoveFromRank" message="tns:RemoveFromRank">
     </wsdl:input>
-      <wsdl:output name="saveRankResponse" message="tns:saveRankResponse">
+      <wsdl:output name="RemoveFromRankResponse" message="tns:RemoveFromRankResponse">
     </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="removeFromRank">
-      <wsdl:input name="removeFromRank" message="tns:removeFromRank">
+    <wsdl:operation name="SaveRank">
+      <wsdl:input name="SaveRank" message="tns:SaveRank">
     </wsdl:input>
-      <wsdl:output name="removeFromRankResponse" message="tns:removeFromRankResponse">
+      <wsdl:output name="SaveRankResponse" message="tns:SaveRankResponse">
     </wsdl:output>
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="RankServiceServiceSoapBinding" type="tns:RankService">
-    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
-    <wsdl:operation name="getRankByMonth">
-      <soap:operation soapAction="" style="rpc"/>
-      <wsdl:input name="getRankByMonth">
-        <soap:body use="literal" namespace="http://localhost:8080/hangman/soap/rank"/>
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="GetRankByMonth">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="GetRankByMonth">
+        <soap:body use="literal"/>
       </wsdl:input>
-      <wsdl:output name="getRankByMonthResponse">
-        <soap:body use="literal" namespace="http://localhost:8080/hangman/soap/rank"/>
+      <wsdl:output name="GetRankByMonthResponse">
+        <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="getRankList">
-      <soap:operation soapAction="" style="rpc"/>
-      <wsdl:input name="getRankList">
-        <soap:body use="literal" namespace="http://localhost:8080/hangman/soap/rank"/>
+    <wsdl:operation name="GetRankList">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="GetRankList">
+        <soap:body use="literal"/>
       </wsdl:input>
-      <wsdl:output name="getRankListResponse">
-        <soap:body use="literal" namespace="http://localhost:8080/hangman/soap/rank"/>
+      <wsdl:output name="GetRankListResponse">
+        <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="saveRank">
-      <soap:operation soapAction="" style="rpc"/>
-      <wsdl:input name="saveRank">
-        <soap:body use="literal" namespace="http://localhost:8080/hangman/soap/rank"/>
+    <wsdl:operation name="RemoveFromRank">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="RemoveFromRank">
+        <soap:body use="literal"/>
       </wsdl:input>
-      <wsdl:output name="saveRankResponse">
-        <soap:body use="literal" namespace="http://localhost:8080/hangman/soap/rank"/>
+      <wsdl:output name="RemoveFromRankResponse">
+        <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="removeFromRank">
-      <soap:operation soapAction="" style="rpc"/>
-      <wsdl:input name="removeFromRank">
-        <soap:body use="literal" namespace="http://localhost:8080/hangman/soap/rank"/>
+    <wsdl:operation name="SaveRank">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="SaveRank">
+        <soap:body use="literal"/>
       </wsdl:input>
-      <wsdl:output name="removeFromRankResponse">
-        <soap:body use="literal" namespace="http://localhost:8080/hangman/soap/rank"/>
+      <wsdl:output name="SaveRankResponse">
+        <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>

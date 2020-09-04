@@ -1,5 +1,8 @@
 package app.service.game;
 
+import java.util.List;
+
+import app.dto.GameDto;
 import app.model.Game;
 import app.model.User;
 
@@ -16,5 +19,9 @@ public interface GameService {
   public String resultWord(String id);
 
   public String getUsedLetters(String id);
+  
+  public GameDto getDto(String id);
+  
+  public List<Game> getRunningGame();
 
 }

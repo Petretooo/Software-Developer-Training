@@ -40,12 +40,11 @@ public class WordServiceImpl implements WordService {
 	}
 
 	@Override
-	public void saveWord(String word, int levelDif) {
+	public Word saveWord(String word, int levelDif) {
 		Word w = new Word();
 		w.setWordName(word);
 		w.setLevelDifficulty(levelDif);
-		wordDao.save(w);
-
+		return wordDao.save(w);
 	}
 
 	@Override

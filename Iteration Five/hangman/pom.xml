@@ -56,66 +56,37 @@
 						</execution>
 					</executions>
 				</plugin>
-
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>jaxws-maven-plugin</artifactId>
+					<version>2.6</version>
+					<executions>
+						<execution>
+							<id>wsimport-from-jdk</id>
+							<goals>
+								<goal>wsimport</goal>
+							</goals>
+						</execution>
+					</executions>
+					<configuration>
+						<wsdlUrls>
+							<wsdlUrl>http://localhost:8081/RankService?wsdl</wsdlUrl>
+						</wsdlUrls>
+						<keep>true</keep>
+						<packageName>app.soap.ws.client.generated</packageName>
+						<sourceDestDir>src/main/java</sourceDestDir>
+					</configuration>
+				</plugin>
 			</plugins>
 		</pluginManagement>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.cxf</groupId>
-				<artifactId>cxf-java2ws-plugin</artifactId>
-				<version>3.4.0</version>
-				<dependencies>
-					<dependency>
-						<groupId>org.apache.cxf</groupId>
-						<artifactId>cxf-rt-frontend-jaxws</artifactId>
-						<version>3.4.0</version>
-					</dependency>
-					<dependency>
-						<groupId>org.apache.cxf</groupId>
-						<artifactId>cxf-rt-frontend-simple</artifactId>
-						<version>3.4.0</version>
-					</dependency>
-				</dependencies>
 
-				<executions>
-					<execution>
-						<id>generate-sources</id>
-						<phase>generate-sources</phase>
-						<configuration>
-							<className>app.service.rank.RankService</className>
-							<genWsdl>true</genWsdl>
-							<verbose>true</verbose>
-						</configuration>
-						<goals>
-							<goal>java2ws</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.cxf</groupId>
-				<artifactId>cxf-codegen-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>generate-sources</id>
-						<phase>generate-sources</phase>
-						<configuration>
-							<sourceRoot>src/generated/java</sourceRoot>
-							<wsdlOptions>
-								<wsdlOption>
-									<wsdl>${basedir}/target/generated/wsdl/RankService.wsdl</wsdl>
-								</wsdlOption>
-							</wsdlOptions>
-						</configuration>
-						<goals>
-							<goal>wsdl2java</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
 	</build>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.3.3.RELEASE</version>
+	</parent>
 
 
 	<dependencies>
@@ -128,7 +99,6 @@
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
-			<version>1.2</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -151,115 +121,82 @@
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
-			<version>1.2</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.sun.xml.ws/jaxws-rt -->
-		<!-- <dependency> <groupId>com.sun.xml.ws</groupId> <artifactId>jaxws-rt</artifactId> 
-			<version>3.0.0-M3</version> </dependency> -->
 		<dependency>
-			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-frontend-jaxws</artifactId>
-			<version>3.3.7</version>
+			<groupId>com.sun.xml.ws</groupId>
+			<artifactId>jaxws-rt</artifactId>
+			<version>3.0.0-M3</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-transports-http</artifactId>
-			<version>3.4.0</version>
+			<artifactId>cxf-spring-boot-starter-jaxws</artifactId>
+			<version>3.3.4</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web-services -->
-		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-web-services</artifactId> 
-			<version>2.3.3.RELEASE</version> </dependency> <dependency> <groupId>org.apache.cxf</groupId> 
-			<artifactId>cxf-spring-boot-starter-jaxws</artifactId> <version>3.3.6</version> 
-			</dependency> -->
-		<!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-frontend-jaxws -->
-		<!-- <dependency> <groupId>org.apache.cxf</groupId> <artifactId>cxf-rt-frontend-jaxws</artifactId> 
-			<version>3.4.0</version> </dependency> <dependency> <groupId>org.apache.cxf</groupId> 
-			<artifactId>cxf-rt-transports-http</artifactId> <version>3.4.0</version> 
-			</dependency> -->
-		<!-- https://mvnrepository.com/artifact/com.sun.xml.ws/jaxws-rt -->
-		<!-- <dependency> <groupId>com.sun.xml.ws</groupId> <artifactId>jaxws-rt</artifactId> 
-			<version>3.0.0-M3</version> </dependency> https://mvnrepository.com/artifact/javax.xml.ws/jaxws-api 
-			<dependency> <groupId>javax.xml.ws</groupId> <artifactId>jaxws-api</artifactId> 
-			<version>2.3.1</version> </dependency> -->
-		<!-- <dependency> <groupId>javax.xml.bind</groupId> <artifactId>jaxb-api</artifactId> 
-			<version>2.3.1</version> </dependency> -->
-		<!-- https://mvnrepository.com/artifact/com.sun.xml.bind/jaxb-core -->
-		<!-- <dependency> <groupId>com.sun.xml.bind</groupId> <artifactId>jaxb-core</artifactId> 
-			<version>2.3.0.1</version> </dependency> -->
-		<!-- https://mvnrepository.com/artifact/com.sun.xml.bind/jaxb-impl -->
-		<!-- <dependency> <groupId>com.sun.xml.bind</groupId> <artifactId>jaxb-impl</artifactId> 
-			<version>3.0.0-M4</version> </dependency> -->
-		<!-- https://mvnrepository.com/artifact/wsdl4j/wsdl4j -->
-		<!-- <dependency> <groupId>wsdl4j</groupId> <artifactId>wsdl4j</artifactId> 
-			<version>1.6.3</version> </dependency> -->
-		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web-services -->
-		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-web-services</artifactId> 
-			<version>2.3.0.RELEASE</version> </dependency> -->
-		<!-- <dependency> <groupId>org.apache.cxf</groupId> <artifactId>cxf-spring-boot-starter-jaxws</artifactId> 
-			<version>3.1.12</version> </dependency> -->
-
-
-
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-transports-http-jetty</artifactId>
+			<version>3.3.4</version>
+		</dependency>
 
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-			<version>2.2.7.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
-			<version>2.2.6.RELEASE</version>
 			<scope>provided</scope>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-rest -->
+
 
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
-			<version>2.3.1.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>8.0.16</version>
 		</dependency>
 		<dependency>
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-core</artifactId>
-			<version>6.4.4</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-jpamodelgen</artifactId>
-			<version>5.3.7.Final</version>
 			<scope>provided</scope>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>6.1.5.Final</version>
+		</dependency>
+
 
 
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjweaver</artifactId>
-			<version>1.9.5</version>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.16.16</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
-			<version>3.7</version>
 		</dependency>
 
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-test</artifactId>
-			<version>2.2.7.RELEASE</version>
 			<scope>test</scope>
 			<exclusions>
 				<exclusion>
@@ -271,31 +208,26 @@
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-engine</artifactId>
-			<version>5.3.1</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
-			<version>3.0.0</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-junit-jupiter</artifactId>
-			<version>3.0.0</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.assertj</groupId>
 			<artifactId>assertj-core</artifactId>
-			<version>3.11.1</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
-			<version>3.8.1</version>
 		</dependency>
 
 	</dependencies>

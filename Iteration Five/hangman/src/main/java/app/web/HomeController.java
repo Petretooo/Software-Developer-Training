@@ -3,10 +3,12 @@ package app.web;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import app.model.Game;
 import app.model.User;
@@ -45,7 +47,7 @@ public class HomeController {
 		Game game = gameService.createGame(user);
 		userStatsService.save(user, game.getCurrentWord());
 		gameStatsService.saveGameStats(game);
-
+			
 		return "redirect:/games/" + game.getId();
 	}
 }

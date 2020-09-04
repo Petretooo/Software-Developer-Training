@@ -1,16 +1,14 @@
 package app;
 
-import javax.xml.ws.Endpoint;
-
-import org.apache.cxf.Bus;
-import org.apache.cxf.bus.spring.SpringBus;
-import org.apache.cxf.jaxws.EndpointImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.client.RestTemplate;
 
-import app.service.rank.RankService;
-import app.service.rank.RankServiceImpl;
+import app.model.Word;
 import app.util.LoggerAspect;
 
 @Configuration
@@ -20,6 +18,14 @@ public class SpringConfig {
 	public LoggerAspect getControllerAspect() {
 		return new LoggerAspect();
 	}
+	
+	private static final Logger log = LoggerFactory.getLogger(SpringConfig.class);
+
+	@Bean
+	public RestTemplate restTemplate(RestTemplateBuilder builder) {
+		return builder.build();
+	}
+
 
 //	@Autowired private RankService rank;
 //	@Autowired private Bus bus;

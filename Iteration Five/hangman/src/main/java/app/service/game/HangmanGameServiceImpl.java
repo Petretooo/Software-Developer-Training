@@ -1,9 +1,14 @@
 package app.service.game;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import app.dao.game.GameDao;
+import app.dto.GameDto;
 import app.model.Symbol;
 import app.model.Game;
 import app.model.User;
@@ -28,7 +33,7 @@ public class HangmanGameServiceImpl implements GameService {
 		if (letter.charAt(0) >= 'A' && letter.charAt(0) <= 'Z') {
 			Symbol character = new Symbol();
 			character.setLetter(letter.charAt(0));
-			game.add(character);
+			game.getCharacters().add(character);
 			alphabetService.saveCharacter(game.getId(), character);
 
 			checkCharacterInWord(id, letter);
@@ -75,6 +80,7 @@ public class HangmanGameServiceImpl implements GameService {
 	@Override
 	public Game createGame(User user) {
 		Game game = new Game();
+		game.setCharacters(new HashSet<Symbol>());
 		game.setNumberTries(5);
 		game.setCurrentWord(wordService.randomWordGenerator().getWordName());
 
@@ -126,6 +132,18 @@ public class HangmanGameServiceImpl implements GameService {
 	@Override
 	public void deleteGame(String id) {
 		gameDao.remove(id);
+	}
+
+	@Override
+	public GameDto getDto(String id) {
+		GameDto dto = GameDto.fromGame(gameDao.get(id));
+		return dto;
+	}
+
+	@Override
+	public List<Game> getRunningGame() {
+		List<Game> games = gameDao.getRunningGames();
+		return games;
 	}
 
 }

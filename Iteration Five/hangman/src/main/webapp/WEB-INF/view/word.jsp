@@ -7,7 +7,7 @@
 %>
 <t:wrapper>
 	<body class="text-center" data-gr-c-s-loaded="true">
-		<form method="post" action="/hangman/word">
+		<form method="post" action="/hangman/words?page=${1}">
 			<label for="wordnameImput">Enter word: <input type="text"
 				id="wordNameInput" name="wordName">
 			</label> <label for="levelImput">Level of Difficulty: <input
@@ -34,7 +34,7 @@
 									<td>${words.getWordName()}</td>
 									<td>${words.getLevelDifficulty()}</td>
 									<td><a
-										href="${pageContext.request.contextPath}/word/delete/${words.getWordName()}"
+										href="${pageContext.request.contextPath}/words/${words.getWordName()}"
 										onclick="return confirm('Are you sure?')">Delete</a></td>
 								</tr>
 							</c:forEach>
@@ -46,11 +46,11 @@
 								<c:choose>
 									<c:when test="${currentPage == pageNumber}">
 										<li class="page-item active"><a class="page-link"
-											href="/hangman/word/page/${pageNumber}">${pageNumber}</a></li>
+											href="/hangman/words?page=${pageNumber}">${pageNumber}</a></li>
 									</c:when>
 									<c:otherwise>
 										<li class="page-item"><a class="page-link"
-											href="/hangman/word/page/${pageNumber}">${pageNumber}</a></li>
+											href="/hangman/words?page=${pageNumber}">${pageNumber}</a></li>
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>

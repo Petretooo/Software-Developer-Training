@@ -4,7 +4,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <t:wrapper>
 	<body class="text-center" data-gr-c-s-loaded="true">
-		<form method="post">
+		<form method="post" >
 			<div>
 				<div
 					class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
@@ -23,7 +23,7 @@
 						<br>
 					<a class="btn btn-lg btn-secondary" href="/hangman/rank">Rank</a>
 					<br/>
-					<a class="btn btn-lg btn-secondary" href="/hangman/word/page/1">Words</a>
+					<a class="btn btn-lg btn-secondary" href="/hangman/words?page=${1}">Words</a>
 				</div>
 			</div>
 		</form>

@@ -37,11 +37,5 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="D:/Programming/LIBS/mysql-connector-java-8.0.16.jar"/>
-	<classpathentry kind="src" output="target/classes" path="src/generated/java">
-		<attributes>
-			<attribute name="optional" value="true"/>
-			<attribute name="maven.pomderived" value="true"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
