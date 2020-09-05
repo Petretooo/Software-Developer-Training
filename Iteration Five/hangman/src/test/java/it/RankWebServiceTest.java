@@ -22,12 +22,8 @@ import app.soap.ws.client.generated.RankingDtoList;
 public class RankWebServiceTest {
 
 	private static RankService service;
-
-	@Mock
-	private RankingDao rankDao;
-
-	@InjectMocks
-	private RankServiceImpl rankImpl;
+	
+	private final static String USERNAME = "Krasimi551";
 
 	@BeforeAll
 	private static void init() {
@@ -43,13 +39,28 @@ public class RankWebServiceTest {
 	}
 
 	@Test
+	public void Should_ReturnCorrectUser_When_GetAllFromTopTen() {
+		RankingDtoList dto = service.getRankList();
+		List<RankingDto> list = dto.getDtoList();
+		List<String> usernameList = list.stream().map(e -> e.getUsername()).collect(Collectors.toList());
+		boolean isTrue = usernameList.contains(USERNAME);
+		assertThat(isTrue).isTrue();
+	}
+	
+	@Test
+	public void Should_ReturnLessOrEqual_When_GetAllFromThisMonth() {
+		RankingDtoList dto = service.getRankByMonth();
+		List<RankingDto> list = dto.getDtoList();
+		assertThat(list.size()).isLessThanOrEqualTo(10);
+	}
+
+	@Test
 	public void Should_ReturnCorrectUser_When_GetAllFromThisMonth() {
 		RankingDtoList dto = service.getRankByMonth();
 		List<RankingDto> list = dto.getDtoList();
 		List<String> usernameList = list.stream().map(e -> e.getUsername()).collect(Collectors.toList());
-		boolean isTrue = usernameList.contains("Krasimi551");
+		boolean isTrue = usernameList.contains(USERNAME);
 		assertThat(isTrue).isTrue();
-		
 	}
 
 }

@@ -135,12 +135,6 @@ public class HangmanGameServiceImpl implements GameService {
 	}
 
 	@Override
-	public GameDto getDto(String id) {
-		GameDto dto = GameDto.fromGame(gameDao.get(id));
-		return dto;
-	}
-
-	@Override
 	public List<Game> getRunningGame() {
 		List<Game> games = gameDao.getRunningGames();
 		return games;

@@ -24,7 +24,7 @@ import app.service.userStats.UserStatsService;
 
 @RestController
 @RequestMapping("/api/v1/games")
-public class GameAPI {
+public class GameApi {
 	@Autowired
 	private GameService gameService;
 	
@@ -38,8 +38,8 @@ public class GameAPI {
 	private GameStatsService gameStatsService;
 
 	@GetMapping(value = "/{gameId}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<GameDto> getGame(@PathVariable String gameId) {
-		GameDto game = gameService.getDto(gameId);
+	public ResponseEntity<Game> getGame(@PathVariable String gameId) {
+		Game game = gameService.getGame(gameId);
 		return ResponseEntity.ok(game);
 	}
 

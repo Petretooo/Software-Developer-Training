@@ -20,8 +20,6 @@ public interface GameService {
 
   public String getUsedLetters(String id);
   
-  public GameDto getDto(String id);
-  
   public List<Game> getRunningGame();
 
 }

@@ -40,7 +40,7 @@ public class Game {
 	@JsonProperty("Id")
 	private String id;
 	@Column
-	@JsonIgnore
+	@JsonProperty("Tries")
 	private int numberTries;
 	@Column
 	@JsonProperty("Current Word")
@@ -51,7 +51,7 @@ public class Game {
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "game_id")
-	@JsonIgnore
+	@JsonProperty("Characters")
 	private Set<Symbol> characters;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
