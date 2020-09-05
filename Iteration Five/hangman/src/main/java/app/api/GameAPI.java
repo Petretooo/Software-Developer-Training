@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import app.dto.GameDto;
 import app.model.Game;
 import app.model.User;
 import app.service.game.GameService;

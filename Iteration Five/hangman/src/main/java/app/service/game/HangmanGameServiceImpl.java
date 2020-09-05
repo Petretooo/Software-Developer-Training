@@ -2,15 +2,13 @@ package app.service.game;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import app.dao.game.GameDao;
-import app.dto.GameDto;
-import app.model.Symbol;
 import app.model.Game;
+import app.model.Symbol;
 import app.model.User;
 import app.service.alphabet.AlphabetService;
 import app.service.word.WordService;

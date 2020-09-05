@@ -2,7 +2,6 @@ package app.service.game;
 
 import java.util.List;
 
-import app.dto.GameDto;
 import app.model.Game;
 import app.model.User;
 
