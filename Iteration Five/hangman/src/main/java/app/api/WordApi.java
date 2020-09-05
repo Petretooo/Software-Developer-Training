@@ -20,7 +20,7 @@ import app.service.word.WordService;
 
 @RestController
 @RequestMapping("/api/v1/words")
-public class WordsApi {
+public class WordApi {
 	
 	@Autowired
 	private WordService wordService;

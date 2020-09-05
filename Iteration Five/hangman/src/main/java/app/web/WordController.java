@@ -25,9 +25,6 @@ public class WordController {
 	
 	@GetMapping
 	public String getPage(@RequestParam("page") int page, Model model) {
-//		RestTemplate template = new RestTemplate();
-//		ResponseEntity<Word[]> words = template.getForEntity("http://localhost:8080/hangman/api/v1/words?page=" + page, Word[].class);
-		
 		model.addAttribute("show", wordService.findByPage(page));
 		model.addAttribute("pages", wordService.numberPages());
 		model.addAttribute("currentPage", page);
