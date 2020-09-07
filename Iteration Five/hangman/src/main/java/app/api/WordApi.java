@@ -3,6 +3,7 @@ package app.api;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -25,9 +26,13 @@ public class WordApi {
 	@Autowired
 	private WordService wordService;
 	
+	private final static String URL_WORD_SELF_REF = "http://localhost:8080/hangman/api/v1/words/%s";
+	
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Word>> getPage(@RequestParam("page") int page, Model model) {
-		return ResponseEntity.ok(wordService.findByPage(page));
+		List<Word> words = wordService.findByPage(page);
+		words.stream().forEach(e -> e.add(Link.of(String.format(URL_WORD_SELF_REF, e.getWordId())).withSelfRel()));
+		return ResponseEntity.ok(words);
 	}
 
 	@DeleteMapping(value = "/{word}", produces = MediaType.APPLICATION_JSON_VALUE)

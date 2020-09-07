@@ -12,7 +12,7 @@ import app.service.rank.RankService;
 import app.service.rank.RankServiceImpl;
 
 @Configuration
-public class ApplicationConfig {
+public class WebServiceConfig {
 	
 	
 	@Autowired private Bus bus;

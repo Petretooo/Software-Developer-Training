@@ -13,6 +13,4 @@ import lombok.Data;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class RankingDtoList {
 	private List<RankingDto> dtoList;
-	
-	
 }

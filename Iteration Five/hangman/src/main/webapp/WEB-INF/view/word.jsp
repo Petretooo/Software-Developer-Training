@@ -7,7 +7,7 @@
 %>
 <t:wrapper>
 	<body class="text-center" data-gr-c-s-loaded="true">
-		<form method="post" action="/hangman/words?page=${1}">
+		<form method="post">
 			<label for="wordnameImput">Enter word: <input type="text"
 				id="wordNameInput" name="wordName">
 			</label> <label for="levelImput">Level of Difficulty: <input

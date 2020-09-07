@@ -3,6 +3,7 @@ package app.api;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -35,10 +36,14 @@ public class GameApi {
 	
 	@Autowired
 	private GameStatsService gameStatsService;
+	
+	private final static String URL_GAME_SELF_REF = "http://localhost:8080/hangman/api/v1/games/%s";
 
 	@GetMapping(value = "/{gameId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Game> getGame(@PathVariable String gameId) {
 		Game game = gameService.getGame(gameId);
+		Link link = Link.of(String.format(URL_GAME_SELF_REF, gameId)).withSelfRel();
+		game.add(link);
 		return ResponseEntity.ok(game);
 	}
 
@@ -62,6 +67,7 @@ public class GameApi {
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Game>> getRunningGames() {
 		List<Game> games = gameService.getRunningGame();
+		games.stream().forEach(e -> e.add(Link.of(String.format(URL_GAME_SELF_REF, e.getId())).withSelfRel()));
 		return ResponseEntity.ok(games);
 	}
 
