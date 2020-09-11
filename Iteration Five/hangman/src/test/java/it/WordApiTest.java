@@ -31,11 +31,8 @@ public class WordApiTest {
 	static private RestTemplate tamplete;
 
 	private final static String URI_GET_WORDS_BY_PAGE = "http://localhost:%d/api/v1/words?page=%d";
-	private final static String URI_DELETE_WORD = "http://localhost:%d/api/v1/words/%s";
-	private final static String URI_CREATE_WORD = "http://localhost:%d/api/v1/words?wordName=%s&level=%d";
 
 	private final static String STATUS_CODE_200_OK = "200 OK";
-	private final static String WORD_ANDROID = "ANDROID";
 
 	@BeforeAll
 	private static void init() {
@@ -59,12 +56,11 @@ public class WordApiTest {
 	}
 
 	@Test
-	public void Should_ReturnAndroid_When_GetWordsByPage() {
+	public void Should_ReturnCorrectWords_When_GetWordsByPage() {
 		ResponseEntity<Word[]> words = tamplete.getForEntity(String.format(URI_GET_WORDS_BY_PAGE,port, 1), Word[].class);
-		List<Word> wordsFromApi = Arrays.stream(words.getBody()).collect(Collectors.toList());
-		List<Word> wordsFromDao = wordDao.findAll();
-		Word wordApi = wordsFromApi.stream().filter(e -> e.getWordName().equals(WORD_ANDROID)).findFirst().orElse(null);
-		Word wordDao = wordsFromDao.stream().filter(e -> e.getWordName().equals(WORD_ANDROID)).findFirst().orElse(null);
-		assertThat(wordApi.getWordName()).isEqualTo(wordDao.getWordName());
+		List<String> wordsFromApi = Arrays.stream(words.getBody()).map(e -> e.getWordName()).collect(Collectors.toList());
+		List<String> wordsFromDao = wordDao.findAll().stream().map(e -> e.getWordName()).collect(Collectors.toList());
+		boolean contains = wordsFromDao.containsAll(wordsFromApi);
+		assertThat(contains).isTrue();
 	}
 }
