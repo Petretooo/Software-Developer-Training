@@ -222,3 +222,213 @@ Hangman example:
 https://github.com/hrabur/hangman2020
 
 https://github.com/hrabur/hangman
+
+
+
+
+
+
+=====>
+
+4. Iteration Four
+
+#1 Spring Boot
+
+    -Embedded Servlet Container (Tomcat) – this iteration we continue to build WAR and deploy it in Tomcat
+
+    -Auto-configuration – reasonable defaults + application.properties|yml
+
+                           i.      https://docs.spring.io/spring-boot/docs/2.1.9.RELEASE/reference/html/boot-features-external-config.html
+
+                          ii.      Profiles, how to use and configure
+
+#2 Spring Boot initializer + starters
+
+    -SQL
+
+        -DDL
+
+                          i.      Create table
+
+                         ii.      Alter table
+
+                         iii.      Etc.
+
+    -DML
+
+                          i.      Select
+
+                            1.Inner join
+
+                            2.Left join
+
+                            3.Right join
+
+                            4.Group by + having
+
+                            5.In clause
+
+                         ii.      Update
+
+                         iii.      insert
+
+#3 JPA/Hibernate
+
+    -JPA – bean to entity mapping using annotations
+
+    -One-to-one, one-to-many, many-to-many – How to implement, annotations, etc.
+
+    -Inheritance – 3 strategies
+
+#4 DAO/Repository pattern
+
+    -Every entity has DAO
+
+    -CrudDao – hand made (get, listAll, create, delete, update)
+
+    -EntityManager – use to implement CRUD and other specific queries
+
+    -Hibernate Criteria API - https://www.tutorialspoint.com/hibernate/hibernate_criteria_queries.htm
+
+    -JPA type safe query API - https://www.tutorialspoint.com/jpa/jpa_criteria_api.htm + JPA Metamodel - https://www.baeldung.com/hibernate-criteria-queries-metamodel
+
+    -HQL and JPQL – outside of the iteration scope, you can just take a look for information
+
+#5 Spring Data
+
+    -CRUD operation easy
+
+    -Custom queries using conventions
+
+    -Spring Data Specifications + JPA Criteria Query - https://www.baeldung.com/spring-data-criteria-queries#specifications
+
+#6 (Secondary goal) DB Migrations with Flyway
+ 
+#7 Practical Task
+
+    1.Clean the manual configuration
+
+    2.Add persistence layer to Hangman
+
+        -Keep games in the DB
+
+        -MariaDB/MySQL
+
+        -Game/HangmanRepository to be implemented as DAO pattern with custom CrudDao (see 3b, c, d, e)
+
+    3.Add game statistic keeping data for every completed game (separate table) – one to one relation to game
+
+    4.Make Ranking per gamer in separate table with one-to-many relation to statistics
+
+    5.When game ends update stats + ranking – RankingService
+    
+        -Stats and Rank entities use Spring Data
+    
+    6.Rank page as home page and when game is over (top 10 players)
+
+        -Top 10 ever Spring Data + conventions (4 a + b)
+
+        -Top 10 for last 30 days use Spring Data specifications (4c)
+
+    7.Flayway migrations to initialize DB schema + some mockup data for statistics and ranking - https://flywaydb.org/getstarted/how
+ 
+
+
+
+
+
+
+ =====>
+
+ 5. Iteration Five
+
+ #1 Web services:
+ 
+    -Main task
+ 
+        1.SOAP (one week)
+ 
+                         i.      Read a bit about SOAP (WSDL)
+
+                         ii.      XML (well formed vs valid), XML schema, WSDL
+
+                         iii.      JAXB – quick check the annotations supported (marshal/unmarshal)
+
+                          iv.      JAX-WS / Apache CXF
+
+                                -Annotations to describe the SOAP WS
+
+                                -Code first
+
+                                -WSDL (contract) first
+                        
+        2.REST
+                         i.      Read about REST concept
+
+                         ii.      https://github.com/paypal/api-standards/blob/master/api-style-guide.md
+
+                         iii.      JSON / Jackson
+
+                          iv.      JSON-B (just for info, out of the scope)
+
+                           v.      JAX-RS / Jersey (just for info, out of the scope)
+
+                          vi.      Spring MVC
+
+                                1.@RestController
+                                2.How to use SpringMVC to realize REST APIs
+                                3.MessageConverter instead of ViewResolvers
+                         vii.      RestTemplate
+
+#2 Testing web services (integration tests)
+    
+    -Junit
+    
+    -Generate consumer of SOAP API to test it (WSDL (contract) first)
+
+    -RestTemplate (spring-web)
+
+    -RestAssuared
+    
+#3 Practical task
+
+    -Open one SOAP web service to get the scores/ranking and generate WSDL
+
+    -SoapUI for manual testing of SOAP web services
+
+    -Expose hangman as REST API
+                      i.      GET \api\games -> list active games
+
+                     ii.      POST \api\games -> start new game
+
+                     iii.      GET \api\games\{gameID} -> get info about the game
+
+                      iv.      POST \api\games\{gameID}\tries
+
+    -Write tests that consume the aforementioned WS and prove they work correctly
+
+    -Spring Boot tests – mockup container integration tests
+
+    
+$Additional information to the Iteration Five
+
+    1.Upgrade to Spring Boot
+
+        - Use Spring Boot and CXF integration to build SOAP endpoint
+    
+        -Hint: http://cxf.apache.org/docs/springboot.html#SpringBoot-SpringBootCXFJAX-WSStarter
+    
+    2.You can take a look on CXF auto-configuration to see how CXF is configured to work with Spring
+    Write integration test with build from WSDL client consuming/testing the exposed endpoint
+        
+        -Hint: Use https://www.mojohaus.org/jaxws-maven-plugin/ to generate the client code form WSDL and CXF as implementation
+    
+    3.Take a look on the WSDL and XSD
+    
+    4.Read in depth about REST principles, maturity model (HATEOAS), PayPal guidelines https://github.com/paypal/api-standards/blob/master/api-style-guide.md
+    
+    5.Expose REST APIs using Spring MVC following the above guidelines and eventually using HATEOAS
+    
+    6.Write integration tests to consume/validate the exposed REST endpoints
+    
+    7.Integrate Swagger using Springfox to auto-generate documentation and playground for the REST APIs
