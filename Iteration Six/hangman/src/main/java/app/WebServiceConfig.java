@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import app.service.rank.RankService;
-import app.service.rank.RankServiceImpl;
 
 @Configuration
 public class WebServiceConfig {

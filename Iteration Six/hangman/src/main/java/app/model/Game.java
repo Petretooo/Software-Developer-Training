@@ -41,13 +41,13 @@ public class Game extends RepresentationModel<Game> {
 	@JsonProperty("Id")
 	private String id;
 	@Column
-	@JsonProperty("Tries")
+	@JsonProperty("tries")
 	private int numberTries;
 	@Column
-	@JsonProperty("Current Word")
+	@JsonProperty("currentWord")
 	private String currentWord;
 	@Column
-	@JsonIgnore
+	@JsonProperty("hiddenWord")
 	private char[] hiddenWord;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

@@ -2,16 +2,22 @@ package app.service.game;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import app.dao.game.GameDao;
 import app.model.Game;
+import app.model.GameStats;
 import app.model.Symbol;
 import app.model.User;
 import app.service.alphabet.AlphabetService;
+import app.service.gameStats.GameStatsService;
+import app.service.userStats.UserStatsService;
 import app.service.word.WordService;
+import app.soap.ws.client.generated.UserStats;
 import app.util.CharacterNotFoundException;
 import lombok.AllArgsConstructor;
 
@@ -23,7 +29,7 @@ public class HangmanGameServiceImpl implements GameService {
 	private WordService wordService;
 	private AlphabetService alphabetService;
 	private GameDao gameDao;
-
+	
 	@Override
 	public void enterCharacter(String id, String letter) {
 
@@ -38,7 +44,6 @@ public class HangmanGameServiceImpl implements GameService {
 
 		}
 		updateWord(game.getId());
-
 	}
 
 	private void checkCharacterInWord(String gameId, String letter) {
@@ -120,6 +125,11 @@ public class HangmanGameServiceImpl implements GameService {
 			words += letter.getLetter() + ", ";
 		}
 		return words;
+	}
+	
+	public List<String> getusedLettersArray(String id) {
+		Game game = gameDao.get(id);
+		return game.getCharacters().stream().map(e -> String.valueOf(e.getLetter())).collect(Collectors.toList());
 	}
 
 	@Override

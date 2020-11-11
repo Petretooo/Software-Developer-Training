@@ -3,7 +3,9 @@ package app.service.alphabet;
 import static java.util.Map.entry;
 
 import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
+import java.util.Map;import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,6 +42,10 @@ public class AlphabetServiceImpl implements AlphabetService {
 	@Override
 	public Map<Character, Boolean> getCurrentGameAlphabet(String gameId) {
 		return gameAlphabet.get(gameId);
+	}
+	
+	public List<Character> getUnusedCharacters(String gameId){
+		return getCurrentGameAlphabet(gameId).entrySet().stream().filter(e -> !e.getValue()).map(e -> e.getKey()).collect(Collectors.toList());
 	}
 
 	@Override

@@ -10,11 +10,12 @@
 <meta name="msapplication-config" content="/docs/4.5/assets/img/favicons/browserconfig.xml">
 <meta name="theme-color" content="#563d7c">
 <div>
-<c:forEach var="game" items="${alpha}">
-<c:if test="${!game.getValue()}">
-	<div class="key letter" >
-  	<button id="characterButton" class="btn btn-lg btn-secondary" type="submit" name="letter" value="${game.getKey()}">${game.getKey()}</button>
-  	</div>
-</c:if>
-</c:forEach>
+	<c:forEach var="game" items="${alpha}">
+		<c:if test="${!game.getValue()}">
+			<div class="key letter">
+				<button id="characterButton" class="btn btn-lg btn-secondary"
+					type="submit" name="letter" value="${game.getKey()}">${game.getKey()}</button>
+			</div>
+		</c:if>
+	</c:forEach>
 </div>

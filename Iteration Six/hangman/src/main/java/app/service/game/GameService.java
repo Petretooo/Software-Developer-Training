@@ -21,4 +21,5 @@ public interface GameService {
   
   public List<Game> getRunningGame();
 
+  public List<String> getusedLettersArray(String id);
 }

@@ -18,10 +18,15 @@ public class UserServiceImpl implements UserService {
 	private UserDao userDao;
 
 	@Override
-	public User create(String username) {
+	public User create(String username) {//fix
 
 		User user = new User();
 		user.setUsername(username);
+		
+		//TODO
+		user.setEmail(String.format("%s@gmail.com",username));
+		user.setPassword(username.toLowerCase());
+		
 		if(userDao.getByName(user.getUsername()) != null) {
 			user = userDao.getByName(user.getUsername());
 		}else {
@@ -51,6 +56,27 @@ public class UserServiceImpl implements UserService {
 		User user = userDao.get(userId);
 		user.getGames().add(game);
 
+	}
+
+	@Override
+	public User getUserByName(String name) {
+		return userDao.getByName(name);
+	}
+
+	@Override
+	public User create(String username, String email, String password) {
+		User user = new User();
+		user.setUsername(username);
+		user.setEmail(email);
+		user.setPassword(password);
+		
+		if(userDao.getByName(user.getUsername()) != null) {
+			user = userDao.getByName(user.getUsername());
+		}else {
+			userDao.save(user);
+		}
+		
+		return user;
 	}
 
 }

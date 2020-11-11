@@ -1,13 +1,9 @@
 package app.service.rank;
 
-import java.util.List;
-
 import javax.jws.WebMethod;
-import javax.jws.WebResult;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 
-import app.dto.RankingDto;
 import app.dto.RankingDtoList;
 import app.model.GameStats;
 import app.model.Ranking;
