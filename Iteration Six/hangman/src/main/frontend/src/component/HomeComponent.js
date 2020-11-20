@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import GameService from "../service/GameService";
+import UserService from "../service/UserService";
 import "bootstrap/dist/css/bootstrap.css";
 import "../css/position.css";
 import "../css/navbar.css";
@@ -8,24 +9,33 @@ class HomeComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      user: {},
       username: " ",
-      gameId: " ",
+      gameId: "",
     };
-    this.createGame = this.createGame.bind(this);
-    this.id = "";
+    //this.createGame = this.createGame.bind(this);
+    // this.id = "";
   }
 
-  onChange(event) {
-    this.setState({ username: event.target.value });
+  componentDidMount() {
+    UserService.getAuthUser().then((res) => this.setState({ user: res }));
   }
+
+  // onChange(event) {
+  //   this.setState({ username: event.target.value });
+  // }
 
   createGame() {
-    GameService.postGame(this.state.username);
+    GameService.postGame()
+      .then((rest) => rest.text())
+      .then((rest) => this.props.history.push(`/hangman/games/${rest}`));
+    // .then((res) => this.setState({ gameId: res }));
+    //.then(this.props.history.push(`/hangman/games/${this.state.gameId}`));
   }
 
-  getIdGame() {
-    return this.state.gameId;
-  }
+  // getIdGame() {
+  //   return this.state.gameId;
+  // }
 
   render() {
     return (
@@ -35,11 +45,11 @@ class HomeComponent extends Component {
             <a href="/hangman">Home</a>
           </li>
           <li>
-            <a href="/hangman/login">Log In</a>
+            <a href="/hangman/logout">Logout</a>
           </li>
-          <li>
+          {/* <li>
             <a href="/hangman/registration">Registration</a>
-          </li>
+          </li> */}
         </ul>
 
         {console.log(this.props)}
@@ -48,7 +58,7 @@ class HomeComponent extends Component {
           <div className="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
             <h1>Welcome to my Hangman game!</h1>
             <hr />
-            <label for="nameImput">
+            {/* <label for="nameImput">
               Enter username:{" "}
               <input
                 value={this.state.username}
@@ -59,9 +69,9 @@ class HomeComponent extends Component {
                 id="usernameInput"
                 name="username"
               ></input>
-            </label>
+            </label> */}
             <button
-              onClick={this.createGame}
+              onClick={() => this.createGame()}
               id="buttonGame"
               className="btn btn-lg btn-secondary"
               type="button"

@@ -5,7 +5,7 @@
 
 <t:wrapper>
 	<body>
-		<form action="/login" method="post" class="html">
+		<form method="post" class="html">
 			<div class="container">
 				<h1>Register</h1>
 
@@ -22,7 +22,7 @@
 				<hr />
 
 				<button className="btn btn-lg btn-secondary" type="submit"
-					value="Submit">Log In</button>
+					value="Submit">Register</button>
 
 				<br /> <br /> <a className="btn btn-lg btn-secondary"
 					href="/hangman"> Back </a>

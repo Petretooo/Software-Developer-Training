@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import WordService from "../service/WordService";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { queryString } from "querystring";
 
 class WordComponent extends Component {
   constructor(props) {
@@ -50,9 +51,20 @@ class WordComponent extends Component {
     for (let i = 1; i <= this.state.pageCount; i++) {
       pages.push(
         <li class="page-item">
-          <a class="page-link" onClick={() => this.setState({ page: i })}>
+          {/* <a
+            href={`/hangman/words?page=${i}`}
+            class="page-link"
+            onClick={() => this.setState({ page: i })}
+          >
             {i}
-          </a>
+          </a> */}
+          <button
+            class="page-link"
+            onClick={() => this.setState({ page: i })}
+            type="button"
+          >
+            {i}
+          </button>
         </li>
       );
     }

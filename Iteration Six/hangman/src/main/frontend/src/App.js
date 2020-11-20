@@ -8,8 +8,6 @@ import RankTopTen from "./component/RankTopTen";
 import RankTopMonth from "./component/RankTopMonth";
 import WinComponent from "./component/WinComponent";
 import GameOverComponent from "./component/GameOverComponent";
-import RegistrationComponent from "./component/RegistrationComponent";
-import LogComponent from "./component/LogComponent";
 
 function App() {
   return (
@@ -24,6 +22,12 @@ function App() {
         <Route
           exact={true}
           path="/hangman/words"
+          component={WordComponent}
+        ></Route>
+        <Route
+          exact={true}
+          path="/hangman/words(/:page)"
+          name="page"
           component={WordComponent}
         ></Route>
         <Route
@@ -51,16 +55,21 @@ function App() {
           path="/hangman/games/:gameId/gameover"
           component={GameOverComponent}
         ></Route>
-        <Route
+        {/* <Route
           exact={true}
-          path="/hangman/registration"
+          path="/hangman/logout"
+          component={HomeComponent}
+        ></Route> */}
+        {/* <Route
+          exact={true}
+          path="/registration"
           component={RegistrationComponent}
         ></Route>
         <Route
           exact={true}
-          path="/hangman/login"
+          path="/login"
           component={LogComponent}
-        ></Route>
+        ></Route> */}
       </switch>
     </main>
   );

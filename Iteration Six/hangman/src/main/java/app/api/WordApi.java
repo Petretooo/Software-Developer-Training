@@ -31,7 +31,7 @@ public class WordApi {
 	private final static String URL_WORD_SELF_REF = "http://localhost:8080/hangman/api/v1/words/%s";
 	
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<WordApiBean> getPage(@RequestParam("page") int page, Model model) {
+	public ResponseEntity<WordApiBean> getPage(@RequestParam int page, Model model) {
 		WordApiBean bean = new WordApiBean();
 		List<Word> words = wordService.findByPage(page);
 		words.stream().forEach(e -> e.add(Link.of(String.format(URL_WORD_SELF_REF, e.getWordId())).withSelfRel()));

@@ -1,5 +1,6 @@
 package app.service.user;
 
+import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -7,7 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import app.dao.user.UserDao;
 import app.model.Game;
+import app.model.Role;
 import app.model.User;
+import app.service.role.RoleService;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -16,6 +19,7 @@ import lombok.AllArgsConstructor;
 public class UserServiceImpl implements UserService {
 
 	private UserDao userDao;
+	private RoleService roleService;
 
 	@Override
 	public User create(String username) {//fix
@@ -69,7 +73,9 @@ public class UserServiceImpl implements UserService {
 		user.setUsername(username);
 		user.setEmail(email);
 		user.setPassword(password);
-		
+		Role roleUser = roleService.getRoleByRole("editor");
+		user.setRoles(new HashSet<Role>());
+		user.getRoles().add(roleUser);
 		if(userDao.getByName(user.getUsername()) != null) {
 			user = userDao.getByName(user.getUsername());
 		}else {

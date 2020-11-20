@@ -2,10 +2,9 @@ package app.api;
 
 import java.util.List;
 
-import javax.websocket.server.PathParam;
-
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -19,13 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import app.dao.rolePermission.PermissionDao;
-import app.dao.rolePermission.RoleDao;
-import app.model.Game;
-import app.model.Permission;
-import app.model.Role;
+import app.dto.UserAuth;
 import app.model.User;
-import app.model.Word;
 import app.service.user.UserService;
 
 @RestController
@@ -47,6 +41,21 @@ public class UserApi {
 		return ResponseEntity.ok(users);
 	}
 	
+	@GetMapping(value = "/auth", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<UserAuth> getAuthUser(){
+		Subject subUser = SecurityUtils.getSubject();
+		User u = userService.getUserByName((String)subUser.getPrincipal());
+		UserAuth auth = new UserAuth();
+		if(u != null) {
+			auth.setId(u.getUserId());
+			auth.setUsername(u.getUsername());
+			auth.setEmail(u.getEmail());
+			auth.setPassword(u.getPassword());
+		}
+		return ResponseEntity.ok(auth);
+	}
+	
+	@SuppressWarnings("null")
 	@PutMapping(value = "{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<User> createUser(@PathVariable String userId, @RequestParam String username, @RequestParam String email, @RequestParam String password) {
 		User user = userService.getUser(userId);

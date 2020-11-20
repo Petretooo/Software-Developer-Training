@@ -1,5 +1,6 @@
 const users = "http://localhost:8080/hangman/api/v1/users";
 const userBy = "http://localhost:8080/hangman/api/v1/users/";
+const userAuth = "http://localhost:8080/hangman/api/v1/users/auth";
 const createUser = "http://localhost:8080/hangman/api/v1/users";
 const updateUser = "http://localhost:8080/hangman/api/v1/users/";
 class UserService {
@@ -11,6 +12,10 @@ class UserService {
         "Content-Type": "application/json",
       },
     }).then((res) => res.json());
+  }
+
+  getAuthUser() {
+    return fetch(userAuth).then((res) => res.json());
   }
 
   getUserByName(username) {

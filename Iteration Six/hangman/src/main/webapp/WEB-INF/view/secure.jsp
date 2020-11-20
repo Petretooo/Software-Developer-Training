@@ -4,7 +4,11 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <t:wrapper>
 	<body class="text-center" data-gr-c-s-loaded="true">
-		<form method="post" >
+		<ul>
+			<li class="active"><a href="/secure">Home</a></li>
+			<li><a href="/secure/logout">Logout</a></li>
+		</ul>
+		<form method="post">
 			<div>
 				<div
 					class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
@@ -19,11 +23,9 @@
 					<c:set var="new" scope="application" value="New game" />
 					<button id="buttonGame" class="btn btn-lg btn-secondary"
 						type="submit">New Game</button>
-						<br>
-						<br>
-					<a class="btn btn-lg btn-secondary" href="/hangman/rank">Rank</a>
-					<br/>
-					<a class="btn btn-lg btn-secondary" href="/hangman/words?page=${1}">Words</a>
+					<br> <br> <a class="btn btn-lg btn-secondary"
+						href="/hangman/rank">Rank</a> <br /> <a
+						class="btn btn-lg btn-secondary" href="/hangman/words?page=${1}">Words</a>
 				</div>
 			</div>
 		</form>

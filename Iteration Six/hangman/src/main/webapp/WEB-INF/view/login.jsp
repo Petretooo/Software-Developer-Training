@@ -5,12 +5,12 @@
 
 <t:wrapper>
 <body>
-	<form action="/login" method="post" class="html">
+	<form method="post" class="html">
 		<div class="container">
 			<h1>Log In</h1>
 			
 			<label for="username"><b>Username</b></label> 
-			<input type="text"placeholder="Enter Username" name="Username" id="Username" required/> 
+			<input type="text"placeholder="Enter Username" name="username" id="username" required/> 
 			
 			<label for="password"><b>Password</b></label> 
 			<input type="password"placeholder="Enter Password" name="password" id="password" required />
@@ -25,6 +25,9 @@
 			<br /> 
 			<a className="btn btn-lg btn-secondary"
 				href="/hangman"> Back </a>
+				<br/>
+			<a className="btn btn-lg btn-secondary"
+				href="/hangman/registration"> Registration </a>
 		</div>
 	</form>
 </body>

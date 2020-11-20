@@ -13,6 +13,10 @@ import lombok.NoArgsConstructor;
 @Embeddable
 public class RolePermissionId implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Column(name = "role_id")
 	private String roleId;
 	@Column(name = "permission_id")

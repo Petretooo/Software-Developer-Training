@@ -2,6 +2,8 @@ package app.api;
 
 import java.util.List;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
@@ -15,7 +17,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import app.model.Game;
 import app.model.GameStats;
@@ -29,22 +30,22 @@ import app.service.userStats.UserStatsService;
 
 @RestController
 @RequestMapping("/api/v1/games")
-@CrossOrigin("http://localhost:3000")
+//@CrossOrigin("http://localhost:3000")
 public class GameApi {
 	@Autowired
 	private GameService gameService;
-	
+
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private UserStatsService userStatsService;
-	
+
 	@Autowired
 	private GameStatsService gameStatsService;
 	@Autowired
 	private RankService rankService;
-	
+
 	private final static String URL_GAME_SELF_REF = "http://localhost:8080/hangman/api/v1/games/%s";
 
 	@GetMapping(value = "/{gameId}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -60,34 +61,37 @@ public class GameApi {
 		Game game = gameService.getGame(gameId);
 		gameService.enterCharacter(gameId, letter);
 		ResponseEntity.noContent();
-		
-		if(gameService.resultWord(gameId) != null) {
+
+		if (gameService.resultWord(gameId) != null) {
 			GameStats gameStat = gameStatsService.updateGameStats(gameId);
 			UserStats stat = userStatsService.update(game);
 			rankService.saveRank(stat, gameStat);
 		}
 
 	}
-	
+
 	@PostMapping
-	public ResponseEntity<String> createGame(@RequestParam String username) {
-		User user = userService.create(username);
-		Game game = gameService.createGame(user);
-		
-		userStatsService.save(user, game.getCurrentWord());
-		gameStatsService.saveGameStats(game);
-		
-		return new ResponseEntity<>(game.getId(), HttpStatus.CREATED);
+	public ResponseEntity<String> createGame() {
+		Subject sub = SecurityUtils.getSubject();
+		User user = userService.getUserByName((String)sub.getPrincipal());
+		if (user != null) {
+			Game game = gameService.createGame(user);
+
+			userStatsService.save(user, game.getCurrentWord());
+			gameStatsService.saveGameStats(game);
+			return new ResponseEntity<>(game.getId(), HttpStatus.CREATED);
+		}
+
+		return null;
 	}
-	
+
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Game>> getRunningGames() {
 		List<Game> games = gameService.getRunningGame();
 		games.stream().forEach(e -> e.add(Link.of(String.format(URL_GAME_SELF_REF, e.getId())).withSelfRel()));
 		return ResponseEntity.ok(games);
 	}
-	
-	
+
 	@GetMapping(value = "/letters/{gameId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<String>> getGameUsedLetters(@PathVariable String gameId) {
 		List<String> letters = gameService.getusedLettersArray(gameId);

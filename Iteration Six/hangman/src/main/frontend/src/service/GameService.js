@@ -28,13 +28,9 @@ class GameService {
     return fetch(getUsedLetters + id).then((response) => response.json());
   }
 
-  postGame(data) {
-    return fetch(postGame + `?username=${data}`, {
+  postGame() {
+    return fetch(postGame, {
       method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
     });
   }
 
