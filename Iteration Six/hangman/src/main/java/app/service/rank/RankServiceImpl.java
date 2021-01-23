@@ -22,8 +22,7 @@ import app.dto.RankingDtoList;
 import app.model.GameStats;
 import app.model.Ranking;
 import app.model.UserStats;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+
 
 @WebService(endpointInterface = "app.service.rank.RankService")
 @Service

@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,7 @@ import app.service.word.WordService;
 
 @RestController
 @RequestMapping("/api/v1/words")
+@CrossOrigin("http://localhost:3000")
 public class WordApi {
 	
 	@Autowired
@@ -29,11 +31,21 @@ public class WordApi {
 	private final static String URL_WORD_SELF_REF = "http://localhost:8080/hangman/api/v1/words/%s";
 	
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Word>> getPage(@RequestParam("page") int page, Model model) {
+	public ResponseEntity<WordApiBean> getPage(@RequestParam int page, Model model) {
+		WordApiBean bean = new WordApiBean();
 		List<Word> words = wordService.findByPage(page);
 		words.stream().forEach(e -> e.add(Link.of(String.format(URL_WORD_SELF_REF, e.getWordId())).withSelfRel()));
-		return ResponseEntity.ok(words);
+		bean.setPageCount(wordService.numberPages());
+		bean.setWords(words);
+		return ResponseEntity.ok(bean);
 	}
+	
+//	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+//	public ResponseEntity<List<Word>> getAll(){
+//		List<Word> words = wordService.findAllWords();
+//		words.stream().forEach(e -> e.add(Link.of(String.format(URL_WORD_SELF_REF, e.getWordId())).withSelfRel()));
+//		return ResponseEntity.ok(words);
+//	}
 
 	@DeleteMapping(value = "/{word}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Word> deleteWord(@PathVariable("word") String word) {

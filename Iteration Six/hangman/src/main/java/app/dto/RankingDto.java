@@ -10,6 +10,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import app.model.Ranking;
 import app.model.User;
 import lombok.Getter;
@@ -27,6 +29,7 @@ public class RankingDto {
 	@XmlElement(name = "idUserRank")
 	private String idUserRank;
 	@XmlTransient
+	@JsonIgnore
 	private User user;
 	@XmlElement(name = "username")
 	private String username;

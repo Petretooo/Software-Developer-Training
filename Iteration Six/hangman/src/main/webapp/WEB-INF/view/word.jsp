@@ -40,7 +40,7 @@
 							</c:forEach>
 						</tbody>
 					</table>
-					<nav aria-label="...">
+					
 						<ul class="pagination pagination-lg">
 							<c:forEach var="pageNumber" begin="1" end="${pages}">
 								<c:choose>
@@ -55,7 +55,7 @@
 								</c:choose>
 							</c:forEach>
 						</ul>
-					</nav>
+					
 				</div>
 			</div>
 		</form>

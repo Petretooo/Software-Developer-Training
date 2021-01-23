@@ -1,9 +1,7 @@
 package app.model;
 
-import java.util.HashSet;
 import java.util.Set;
 
-import javax.json.bind.annotation.JsonbProperty;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,14 +16,11 @@ import javax.persistence.OneToOne;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.hateoas.RepresentationModel;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import lombok.Setter;
 
 @Entity
@@ -41,13 +36,13 @@ public class Game extends RepresentationModel<Game> {
 	@JsonProperty("Id")
 	private String id;
 	@Column
-	@JsonProperty("Tries")
+	@JsonProperty("tries")
 	private int numberTries;
 	@Column
-	@JsonProperty("Current Word")
+	@JsonProperty("currentWord")
 	private String currentWord;
 	@Column
-	@JsonIgnore
+	@JsonProperty("hiddenWord")
 	private char[] hiddenWord;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

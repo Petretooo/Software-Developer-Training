@@ -17,8 +17,8 @@ public class LoggerAspect {
     logger.info("------------This method: " + name);
   }
   
-  @Before("execution(* app.web.GameController.createGame(..))")
-  public String beforeCreateGame(JoinPoint joinPoint) {
-	  return "user.jsp";
-  }
+//  @Before("execution(* app.web.GameController.createGame(..))")
+//  public String beforeCreateGame(JoinPoint joinPoint) {
+//	  return "user.jsp";
+//  }
 }

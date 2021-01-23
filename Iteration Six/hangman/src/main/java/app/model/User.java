@@ -7,11 +7,14 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,16 +32,30 @@ public class User {
 	private String userId;
 	@Column
 	private String username;
+	@Column
+	private String email;
+	@Column
+	private String password;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	@NonNull
+	@JsonIgnore
 	Set<Game> games;
-	
+
+//	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+//	@JsonIgnore
+//	private Set<Role> roles;
+
+	@ManyToMany
+	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	@JsonIgnore
+	private Set<Role> roles;
+
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Set<UserStats> userStats;
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL )
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Set<Ranking> rank;
-	
-	
 }

@@ -6,3 +6,5 @@ INSERT INTO `user`(user_id, username)
 VALUES('user23e7-fd18-3243-8bca-b6daecd57317', 'ColdBlood');
 INSERT INTO `user`(user_id, username)
 VALUES('user1117-fd18-3v73-8bca-b6daecd57317', 'Yoda');
+INSERT INTO `user`(user_id, username)
+VALUES('user6666-fd18-3v73-8bca-b6daecd57317', 'Simonka');
