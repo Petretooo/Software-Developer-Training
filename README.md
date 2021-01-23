@@ -1,9 +1,9 @@
 # Full-Stack-Software-Developer-Training
 
 #1 Servlet API
-    
+
     -Servlet API, JSP, JSTL, Tag Files
-    
+
     -Maven, HTTP, URI, Eclipse, Google Java Style, SonarLint
 
     -Few tasks with Servlet API
@@ -13,19 +13,19 @@
     -Spring Core
 
     -Junit 5, AssertJ/Harmcrest, Mockito
-    
+
     -CL Spring, AOP, 60% code coverage unit test
 
 #3 Spring MVC
 
     -Spring MVC
-    
+
     -Integration Testing, GitLab
-    
+
     -User Management App (in memory), integration testing
 
 #4 JPA/Hibernate
-    
+
     -Spring Data, JPA/Hibernate, JPA Metamodel
 
     -Flyway (DB migrations), 3 tire architecture
@@ -50,18 +50,18 @@
 
 #7 Team play
 
-______________________________________________________________________________________________
+---
 
 ====>
 
 1.Iteration One
 
 #1 Maven - https://maven.apache.org/guides/getting-started/index.html
-    
+
     -Dependencies
-    
+
     -Dependency Management
-    
+
     -Plugins configuration
 
                  i.      frontend-maven-plugin – make Maven build to run NPM build
@@ -84,7 +84,7 @@ ________________________________________________________________________________
 
 #3 Tasks
 
-    -Clone https://github.com/hrabur/servlet-jsp-demo, fix, upgrade to Servlet 3.1 and solve 
+    -Clone https://github.com/hrabur/servlet-jsp-demo, fix, upgrade to Servlet 3.1 and solve
     the open tasks
 
     -Create CRUD application for user management (list users, add user, delete user, modify user):
@@ -95,12 +95,8 @@ ________________________________________________________________________________
 
                   iii.      store users in memory in the servlet context
 
-
 Възможна литература:
 https://github.com/hrabur/web-programming-course/wiki
-
-
-
 
 =====>
 
@@ -125,20 +121,20 @@ https://github.com/hrabur/web-programming-course/wiki
     -Java конфигурация и classpath scanning
 
     -AOP in Spring (AspectJ и Spring AOP style approach)
-#2 Multi-tire architecture – 2 tire architecture (presentation Servlet API + JSP, business logic 
 
-#3Spring Core + Spring Beans - *ApplicationContext + ServletContextListner.onStart?)
+#2 Multi-tire architecture – 2 tire architecture (presentation Servlet API + JSP, business logic
+
+#3Spring Core + Spring Beans - \*ApplicationContext + ServletContextListner.onStart?)
 Junit 5 + Harmcrest/AssertJ + Mockito
 
 #4 Test - Hangman
-    
+
     -Index page – Welcome + start new game (POST /games) – redirect to Game page (/games/{gameId})
-    
+
     -Game page – puzzled word, tries left, letters left (button) – reload game page on try (POST /
     games/{gameId}) redirect game or game over page
 
     -Game over page – Well done/Sorry + start new game (POST /games)
- 
 
 Words in English stored in the code as array/collection
 
@@ -152,12 +148,6 @@ GameService – startNewGame, makeTry, etc.
 
 AnnotationConfigApplicationContext
 
-
-
-
-
-
-
 =====>
 
 3. Iteration Three
@@ -167,7 +157,7 @@ AnnotationConfigApplicationContext
     -How to integrate with Servlet Container
 
     -Controllers and handler methods
-     
+
                  i.      Possible args and return types - https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html#mvc-ann-methods
 
                  ii.      Data binding
@@ -181,12 +171,12 @@ AnnotationConfigApplicationContext
     -@RequestBody/@ResponseBody – Used to implement REST API
 
     -ResourceHandlers – serve files from file system or classpath
-    
+
     -Iterceptors (like Servlet Filters)
 
 #2 Selenium/WebDriver
 
-    -Upgrade your unit tests with the new implementation of GameService + use only AssertJ + Mockito 
+    -Upgrade your unit tests with the new implementation of GameService + use only AssertJ + Mockito
     (if necessary)
 
     -Implement integration test suite to test Hangman from the browser
@@ -213,8 +203,6 @@ AnnotationConfigApplicationContext
 
     -GET /games/23452345-sdgsdfg-twet-sdfggsdfg/real-word - Cheet
 
- 
-
 !First + last visible + all matching inside and removed from letters left
 
 Hangman example:
@@ -222,11 +210,6 @@ Hangman example:
 https://github.com/hrabur/hangman2020
 
 https://github.com/hrabur/hangman
-
-
-
-
-
 
 =====>
 
@@ -303,7 +286,7 @@ https://github.com/hrabur/hangman
     -Spring Data Specifications + JPA Criteria Query - https://www.baeldung.com/spring-data-criteria-queries#specifications
 
 #6 (Secondary goal) DB Migrations with Flyway
- 
+
 #7 Practical Task
 
     1.Clean the manual configuration
@@ -321,9 +304,9 @@ https://github.com/hrabur/hangman
     4.Make Ranking per gamer in separate table with one-to-many relation to statistics
 
     5.When game ends update stats + ranking – RankingService
-    
+
         -Stats and Rank entities use Spring Data
-    
+
     6.Rank page as home page and when game is over (top 10 players)
 
         -Top 10 ever Spring Data + conventions (4 a + b)
@@ -331,23 +314,17 @@ https://github.com/hrabur/hangman
         -Top 10 for last 30 days use Spring Data specifications (4c)
 
     7.Flayway migrations to initialize DB schema + some mockup data for statistics and ranking - https://flywaydb.org/getstarted/how
- 
 
+=====>
 
+5.  Iteration Five
 
+#1 Web services:
 
-
-
- =====>
-
- 5. Iteration Five
-
- #1 Web services:
- 
     -Main task
- 
+
         1.SOAP (one week)
- 
+
                          i.      Read a bit about SOAP (WSDL)
 
                          ii.      XML (well formed vs valid), XML schema, WSDL
@@ -361,7 +338,7 @@ https://github.com/hrabur/hangman
                                 -Code first
 
                                 -WSDL (contract) first
-                        
+
         2.REST
                          i.      Read about REST concept
 
@@ -381,15 +358,15 @@ https://github.com/hrabur/hangman
                          vii.      RestTemplate
 
 #2 Testing web services (integration tests)
-    
+
     -Junit
-    
+
     -Generate consumer of SOAP API to test it (WSDL (contract) first)
 
     -RestTemplate (spring-web)
 
     -RestAssuared
-    
+
 #3 Practical task
 
     -Open one SOAP web service to get the scores/ranking and generate WSDL
@@ -409,26 +386,104 @@ https://github.com/hrabur/hangman
 
     -Spring Boot tests – mockup container integration tests
 
-    
 $Additional information to the Iteration Five
 
     1.Upgrade to Spring Boot
 
         - Use Spring Boot and CXF integration to build SOAP endpoint
-    
+
         -Hint: http://cxf.apache.org/docs/springboot.html#SpringBoot-SpringBootCXFJAX-WSStarter
-    
+
     2.You can take a look on CXF auto-configuration to see how CXF is configured to work with Spring
     Write integration test with build from WSDL client consuming/testing the exposed endpoint
-        
+
         -Hint: Use https://www.mojohaus.org/jaxws-maven-plugin/ to generate the client code form WSDL and CXF as implementation
-    
+
     3.Take a look on the WSDL and XSD
-    
+
     4.Read in depth about REST principles, maturity model (HATEOAS), PayPal guidelines https://github.com/paypal/api-standards/blob/master/api-style-guide.md
-    
+
     5.Expose REST APIs using Spring MVC following the above guidelines and eventually using HATEOAS
-    
+
     6.Write integration tests to consume/validate the exposed REST endpoints
-    
+
     7.Integrate Swagger using Springfox to auto-generate documentation and playground for the REST APIs
+
+=====>
+
+#6 Security (backend)
+1.Learn and integrate Apache Shiro (use User - Role - Permission model, where permissions are hardcodded in the code/UI and given in a table to a role)
+
+        Make application use FORM authentication for UI and BASIC for web services using path matching
+
+        Learn how to apply security either:
+
+                                                              i.      declarative
+
+
+    -path matching based
+
+    using annotations, i.e. @RequiresPermission
+
+                                                             ii.      programmatic way using SecurityUtils.getSubject.hasPermission(...)
+
+
+    2.JavaScript (ECMA 2017)
+
+                                                             i.      let, const
+
+                                                             ii.      arrow functions
+
+                                                            iii.      object literals
+
+                                                             iv.      coercion, equals, types and conditionals (https://dev.to/aershov24/top-26-javascript-interview-questions-i-wish-i-knew-26k1)
+
+                                                              v.      class definitions (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes)
+
+                                                             vi.      rest/spread both for array and objects (https://nitayneeman.com/posts/object-rest-and-spread-properties-in-ecmascript-2018/)
+
+                                                            vii.      Array as API (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) – map, filter, includes, some, any, etc.
+
+                                                           viii.      Destructors (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment)
+
+                                                            ix.      this (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this)
+
+                                                             x.      fetch API (https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
+
+                                                            xi.      JS modules (import, export, default export)
+
+    3.NPM – Like maven but without the packaging – dependencies, registry (like Central Repo for Maven), package.json (like pom.xml)
+
+    4.Webpack – The packaging part to make 100% - plugins, configuration, webpack.js
+
+    5.ReactJS - https://reactjs.org/tutorial/tutorial.html
+
+        -Functional and class componets
+
+        -Props and state
+
+        -Conditional rendering
+
+        -Props propagation and functions as a props
+
+        -React Hooks - https://reactjs.org/docs/hooks-intro.html
+
+        -Render props (https://reactjs.org/docs/render-props.html)
+
+        -Higher Order Components (HOC) - https://reactjs.org/docs/higher-order-components.html
+
+    6.React packages
+
+        -React-intl – i18n
+
+        -React-bootstrap – components (material-ui)
+
+        -React-router
+
+        -Swr - https://swr.vercel.app/
+
+        -React-select
+
+    7.Jest (unit testing), Storybook – ui styling and testing
+
+    8.In addition to examples that you’ll do make refactoring of existing CRUD application to replace some JSP screens with ReactJS + REST API (SPA CRA)
